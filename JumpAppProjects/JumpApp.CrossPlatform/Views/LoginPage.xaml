@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Controls="clr-namespace:JumpApp.Controls"
+             x:Class="JumpApp.Views.LoginPage" BackgroundColor="White"
+             xmlns:cv="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             NavigationPage.HasNavigationBar="False">
+    <NavigationPage.TitleView>
+        <Label Text="" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
+        <StackLayout Padding="0,50,0,0">
+            <Image Source="Logo2.png"></Image>
+        </StackLayout>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="100" Padding="0,50,0,0">
+            <cv:CarouselViewControl x:Name="carousel" Orientation="Horizontal" InterPageSpacing="10" Scrolled="Carousel_Scrolled" Position="{Binding myPosition}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <cv:CarouselViewControl.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>The world record for 30 seconds speed jumping is 188 jumps!</x:String>
+                        <x:String>In fifteen minutes jumpers can burn the calories in a candy bar or 200 calories</x:String>
+                        <x:String>According to one source 10 minutes of jumping rope is equal to 30 minutes of running at a 5.7 mph pace</x:String>
+                        <x:String>Jump Rope is a competitive sport in over 38 countries and jump roping organizations and clubs can be found almost anywhere</x:String>
+                        <x:String>Other countries call jumping rope, rope skipping</x:String>
+                        <x:String>Many people associate jump roping with girls' play, but history indicates that jump roping was originally a man's game.</x:String>
+                    </x:Array>
+                </cv:CarouselViewControl.ItemsSource>
+                <cv:CarouselViewControl.ItemTemplate>
+                    <DataTemplate>
+                       
+                        
+                            <Label Text="{Binding .}" Style="{StaticResource StandardLabel}" HorizontalTextAlignment="Center" FontSize="Title" />
+                        
+                        
+                        
+                    </DataTemplate>
+                </cv:CarouselViewControl.ItemTemplate>
+            </cv:CarouselViewControl>
+           
+        </StackLayout>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="End" Padding="0,150,0,0">
+            <Button x:Name="btnLogin" Text="Sign In" Clicked="OnSignInSignOut" Style="{StaticResource StandardButton}" />
+
+        </StackLayout>
+
+        <!--<StackLayout HeightRequest="50" BackgroundColor="{StaticResource BackgroundDark}">-->
+            
+       
+    </StackLayout>
+    
+</ContentPage>

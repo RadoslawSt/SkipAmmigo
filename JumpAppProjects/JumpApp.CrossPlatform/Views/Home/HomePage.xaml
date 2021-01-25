@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:converter ="clr-namespace:JumpApp.Converters"
+             xmlns:customControls="clr-namespace:JumpApp.Controls;assembly=JumpApp"
+              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+            ios:Page.UseSafeArea="true"
+             x:Class="JumpApp.Views.Home.HomePage">
+
+    <NavigationPage.TitleView>
+        <Label Text="Home" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BackgroundColorConverter x:Key="BackgroundColorConverter2"></converter:BackgroundColorConverter>
+            <converter:ProfileImageSourceConverter x:Key="ProfileImageSourceConverter2"></converter:ProfileImageSourceConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
+            <Label x:Name="lblProfileImageExtension" IsVisible="False" Text="{Binding profileImageExtension}"></Label>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="20"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding lblName}" x:Name="lblNameText"  Grid.Column="1" Grid.Row="1" Style="{StaticResource WelcomeLabel}"/>
+                <Label Text="Here are your latest workouts" x:Name="lblLatestWorkouts" Grid.Column="1" Grid.Row="2" Style="{StaticResource WelcomeLabel}"/>
+            </Grid>
+            <Grid HorizontalOptions="FillAndExpand" x:Name="gridButtons" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Text="Own" Grid.Column="1" Grid.Row="1" Style="{StaticResource StandardButton}"/>
+                <Button Text="Friends" Grid.Column="2" Grid.Row="1" IsEnabled="False" Style="{StaticResource StandardButton}"/>
+                <Button Text="Users" Grid.Column="3" Grid.Row="1" IsEnabled="False" Style="{StaticResource StandardButton}"/>
+            </Grid>
+
+            <ListView ItemsSource="{Binding WorkoutSessionsLimited}" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvWorkoutList" CachingStrategy="RecycleElementAndDataTemplate" ItemTapped="LvWorkoutList_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5" RowSpacing="10" ColumnSpacing="10" BackgroundColor="{Binding WorkoutSessionId,Converter={StaticResource BackgroundColorConverter2}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ffimageloading:CachedImage x:Name="imgProfile" DownsampleToViewSize="true" WidthRequest="60" HeightRequest="60"                                                                                                                             
+                                         Source="{Binding LoginID,Converter={StaticResource ProfileImageSourceConverter2},ConverterParameter={x:Reference Name=lblProfileImageExtension}}"
+                                         VerticalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+
+                                <Label Grid.Column="1" Text="{Binding TotalJumps, StringFormat='{0:F0} Jumps'}" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="1"  Grid.Row="1" VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
+                                <!--BackgroundColor="{Binding workoutSessionExists,Converter={StaticResource BackgroundColorConverter2}}"-->
+                                <Label Grid.Column="2" Text="Calories Burned" HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="2" Grid.Row="1" VerticalOptions="Start" HorizontalTextAlignment="Center" Text="{Binding Calories}" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="3" Text="{Binding DateTime, StringFormat='{0:M}'}" x:Name="lblDate"  HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="3" Grid.Row="1" x:Name="lblTime" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding DateTime, StringFormat='{}{0:H\\:mm}'}" Style="{StaticResource StandardLabel}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Frame Grid.Row="0" Grid.Column="1"  HorizontalOptions="Center" BackgroundColor="{StaticResource BackgroundLight}">
+                <Frame.Content>
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="25"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Text="Work Out" Grid.Column="1" Grid.Row="1" Clicked="Button_Clicked" Style="{StaticResource StandardButton}"/>
+                    </Grid>
+                </Frame.Content>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

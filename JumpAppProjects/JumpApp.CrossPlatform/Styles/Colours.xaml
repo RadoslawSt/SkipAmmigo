@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpApp.Styles.Colours">
+
+    <!-- Colors -->
+    <Color x:Key="WhiteColour">#FFFFFF</Color>
+    <Color x:Key="BlackColour">#000000</Color>
+    <Color x:Key="TextGrayColour">#888888</Color>
+    <Color x:Key="ProgressGreenColour">#33CC33</Color>
+    <Color x:Key="OrangeColour">#ff9900</Color>
+    <Color x:Key="RedColour">#ff0000</Color>
+    <Color x:Key="GreenColour">#00cc00</Color>
+    <!--SPECIAL COLOURS-->
+    <Color x:Key="MintCream">#F7FFF6</Color>
+    <Color x:Key="Charcoal">#2E4057</Color>
+    <Color x:Key="RaisinBlack">#272727</Color>
+    <Color x:Key="Orange">#EC7D10</Color>
+    <Color x:Key="PewterBlue">#8BA6A9</Color>
+    <Color x:Key="LightRed">#EA695C</Color>
+    <Color x:Key="DarkGreen">#32a852</Color>
+</ResourceDictionary>

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:converter="clr-namespace:JumpApp.Converters"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
+             x:Class="JumpApp.Views.MyWorkouts.MyWorkoutsPage">
+    <NavigationPage.TitleView>
+        <Label Text="Workouts" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BackgroundColorConverter x:Key="BackgroundColorConverter2"></converter:BackgroundColorConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Text="Jumps: " Grid.Column="0" Style="{StaticResource MyWorkoutLabel}" HorizontalOptions="Start"/>
+                <Label Text="{Binding totalJumps}" Grid.Column="0" HorizontalTextAlignment="End" Style="{StaticResource MyWorkoutLabel}" HorizontalOptions="End"/>
+                <Label Text="Calories: " Grid.Column="1"  Style="{StaticResource MyWorkoutLabel}" HorizontalOptions="Start"/>
+                <Label Text="{Binding totalCalories}" Grid.Column="1" HorizontalTextAlignment="End" Style="{StaticResource MyWorkoutLabel}" HorizontalOptions="End"/>
+                <Label Text="Duration: " Grid.Column="2" Style="{StaticResource MyWorkoutLabel} " HorizontalOptions="Start"/>
+                <Label Text="{Binding totalDuration, StringFormat='{}{0:mm\\:ss}'}" Grid.Column="2" HorizontalTextAlignment="End" Style="{StaticResource MyWorkoutLabel}" HorizontalOptions="End"/>
+            </Grid>
+            <ListView ItemsSource="{Binding WorkoutSessions}" HasUnevenRows="true" SeparatorVisibility="Default" ItemTapped="ListView_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10" RowSpacing="10" ColumnSpacing="10" BackgroundColor="{Binding WorkoutSessionId,Converter={StaticResource BackgroundColorConverter2}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Text="{Binding TotalJumps, StringFormat='{0:F0} Jumps'}" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="0"  Grid.Row="1"  VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="1" Text="Calories" HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="1" Grid.Row="1" VerticalOptions="Start" HorizontalTextAlignment="Center" Text="{Binding Calories}" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="2" Text="{Binding DateTime, StringFormat='{0:M}'}" x:Name="lblDate" HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="2"  Grid.Row="1" x:Name="lblTime" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding DateTime, StringFormat='{}{0:H\\:mm}'}"
+                                       Style="{StaticResource StandardLabel}"/>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

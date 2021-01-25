@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true"
+             x:Class="JumpApp.Views.Settings.SettingsPage"
+             xmlns:customControls="clr-namespace:JumpApp.Controls;assembly=JumpApp">
+
+  
+    <NavigationPage.TitleView>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Label Text="Settings" Style="{StaticResource NavigationLabel}" Grid.Column="0" VerticalOptions="Center"></Label>
+            <Button Text="LOG OUT" Style="{StaticResource RedButton}" Clicked="LogoutButton_ClickedAsync" HorizontalOptions="EndAndExpand" Grid.Column="1"></Button>
+        </Grid>
+
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource BackgroundDark}">
+
+
+
+
+            <!--<Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    --><!--<RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="250"></RowDefinition>--><!--
+                </Grid.RowDefinitions>
+            </Grid>-->
+            
+            <Label Margin="16,0,0,0" HeightRequest="30" LineHeight="{OnPlatform Default=-1,Android=1.25}" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"  Text="ACCOUNT" Style="{StaticResource StandardLabel}"/>
+                <ListView x:Name="lvAccount" RowHeight="45" SeparatorVisibility="None" ItemTapped="LvItem_ItemTapped" HeightRequest="150">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:ExtendedViewCell SelectedBackgroundColor="White">
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal" Padding="20,10,20,10" Spacing="5" BackgroundColor="{StaticResource BackgroundLight}">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding IconStart}"  VerticalOptions="Center" Grid.Column="0" Grid.Row="0"/>
+
+                                            <Label Text="{Binding Title}"  Grid.Column="1" HorizontalOptions="Start"  Grid.Row="0" Style="{StaticResource StandardLabel}"/>
+                                            <Image Source="{Binding IconEnd}" HeightRequest="20" WidthRequest="20" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Grid.Row="0"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </customControls:ExtendedViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!--<Label  Margin="16,0,0,0" HeightRequest="30" Text="NOTIFICATIONS" Grid.Row="2" Style="{StaticResource StandardLabel}"/>
+            <StackLayout Orientation="Horizontal" Spacing="5"  Padding="20,10,20,10" BackgroundColor="{StaticResource BackgroundLight}">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Source="Home.png" VerticalOptions="Center" Grid.Column="0" Grid.Row="0"/>
+                    <Label Text="Notifications" HorizontalOptions="Start" Grid.Column="1"  Grid.Row="0" Style="{StaticResource StandardLabel}"/>
+                        <Switch x:Name="tglSwitch1" OnColor="#CC3300" IsToggled="false" Grid.Column="2" Grid.Row="0" HorizontalOptions="Start"></Switch>
+                        <Image Source="Home.png" VerticalOptions="Center" Grid.Column="0" Grid.Row="1"/>
+                    <Label Text="Email Notifications" HorizontalOptions="Start" Grid.Column="1"  Grid.Row="1" Style="{StaticResource StandardLabel}"/>
+                        <Switch x:Name="tglSwitch2" OnColor="#CC3300" IsToggled="false" Grid.Column="2" Grid.Row="1" HorizontalOptions="Start"></Switch>
+                        <Image Source="Home.png" VerticalOptions="Center" Grid.Column="0" Grid.Row="2"/>
+                    <Label Text="Reminders" HorizontalOptions="Start" Grid.Column="1" Grid.Row="2" Style="{StaticResource StandardLabel}"/>
+                        <Switch x:Name="tglSwitch3" OnColor="#CC3300" IsToggled="false" Grid.Column="2" Grid.Row="2" HorizontalOptions="Start"></Switch>
+                    </Grid>
+                </StackLayout>
+         
+
+
+
+
+                <Label  Margin="16,0,0,0" HeightRequest="30" LineHeight="{OnPlatform Default=-1, Android=1.25}" Text="Support" Grid.Row="4" Style="{StaticResource StandardLabel}"/>
+                <ListView x:Name="lvSupport" RowHeight="45" SeparatorVisibility="None" Grid.Row="5" ItemTapped="LvItem_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:ExtendedViewCell SelectedBackgroundColor="White">
+                                <ViewCell.View>
+                                    <StackLayout Orientation="Horizontal" Padding="20,10,20,10" Spacing="5" BackgroundColor="{StaticResource BackgroundLight}">
+                                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="30"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Image Source="{Binding IconStart}" VerticalOptions="Center" Grid.Column="0" Grid.Row="0"/>
+                                        <Label Text="{Binding Title}" HorizontalOptions="Start" Grid.Column="1" Grid.Row="0" Style="{StaticResource StandardLabel}"/>
+                                            <Image Source="{Binding IconEnd}"  HeightRequest="20" WidthRequest="20" VerticalOptions="Center" HorizontalOptions="End" Grid.Column="2" Grid.Row="0"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </customControls:ExtendedViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+        
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpApp.Views.ShakeSetup">
+    <NavigationPage.TitleView>
+        <Label Text="Shake Setup" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
+            <Label Text="Setting up phones sensitivity" Style="{StaticResource StandardLabel}"/>
+            <Label Text="Threshhold" Style="{StaticResource StandardLabel}"></Label>
+            <Slider x:Name="ThresholdSlider" ThumbImage="" MinimumTrackColor="#B8D432" MaximumTrackColor="Gray" Margin="0,10" Minimum="0" Maximum="500"></Slider>
+            <Label Text="Value Amount" x:Name="ThresholdValue" Style="{StaticResource StandardLabel}"></Label>
+            <Button x:Name="btnStart" Text="Start" Clicked="Button_Clicked" Style="{StaticResource StandardButton}"></Button>
+            <Label x:Name="lblshake" Text="Off" Style="{StaticResource StandardLabel}"></Label>
+            <Label x:Name="lblCounter" Style="{StaticResource StandardLabel}"></Label>
+            <Button Text="Accept" Clicked="Button_Clicked_1" VerticalOptions="StartAndExpand" Style="{StaticResource GreenButton}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

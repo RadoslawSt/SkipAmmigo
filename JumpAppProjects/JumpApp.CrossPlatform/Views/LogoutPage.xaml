@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpApp.Views.LogoutPage">
+    <NavigationPage.TitleView>
+        <Label Text="Logout" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Button x:Name="logoutButton" Text="Logout" Clicked="OnLogoutButtonClicked" Style="{StaticResource StandardButton}"/>
+        <Label x:Name="messageLabel" Style="{StaticResource StandardLabel}" />
+    </StackLayout>
+</ContentPage>

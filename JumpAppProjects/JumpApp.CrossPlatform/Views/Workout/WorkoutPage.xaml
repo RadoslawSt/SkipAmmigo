@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             xmlns:picker="clr-namespace:JumpApp.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="JumpApp.Views.Workout.WorkoutPage">
+             
+    <NavigationPage.TitleView>
+        <Label Text="Workout" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" BackgroundColor="{StaticResource BackgroundLight}">
+            <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                
+                <Label Text="Delay Timer" Grid.Column="0" Grid.Row="0" Style="{StaticResource StandardLabel}"/>
+                <Switch x:Name="tglSwitch" OnColor="#EA695c" IsToggled="false" Toggled="Switch_Toggled" Grid.Column="0" Grid.Row="1" HorizontalOptions="Start"></Switch>
+                <!--<Picker x:Name="Picker" Style="{StaticResource StandardPicker}" SelectedIndexChanged="Picker_SelectedIndexChanged" TitleColor="{StaticResource MintCream}" Title="Seconds delay" Grid.Column="2" Grid.Row="1" IsEnabled="False" SelectedIndex="0">
+                    <Picker.Items>
+                        <x:String>3 Seconds</x:String>
+                        <x:String>5 Seconds</x:String>
+                    </Picker.Items>
+                </Picker>-->
+                <picker:CustomPicker x:Name="Picker" Style="{StaticResource StandardPicker}" SelectedIndexChanged="Picker_SelectedIndexChanged" Title="Seconds delay" Grid.Column="2" Grid.Row="1" IsEnabled="False" SelectedIndex="0">
+                    <picker:CustomPicker.Items>
+                        <x:String>3 Seconds</x:String>
+                        <x:String>5 Seconds</x:String>
+                    </picker:CustomPicker.Items>
+                </picker:CustomPicker>
+                <Label Text="Duration" Grid.Column="1" Grid.Row="2" Style="{StaticResource StandardLabel}"/>
+                <Label Text="00:00:00" x:Name="lblTimer" Grid.Column="1" Grid.Row="3" Style="{StaticResource StandardLabel}"/>
+                <Label Text="0" x:Name="lblJumps" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource WorkoutLabel}"/>
+                <control:ProgressRing x:Name="progressbar" RingThickness="20" Progress="0" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"/>
+                <Label x:Name="lblCountdown" Text="" IsVisible="False" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource WorkoutLabel}"/>
+                <Label Text="Calories Burned" Grid.Column="1" Grid.Row="5" Style="{StaticResource StandardLabel}"/>
+                <Label Text="0" x:Name="lblCaloriesBurned" Grid.Column="1" Grid.Row="6" Style="{StaticResource StandardLabel}"/>
+                <Label Text="Average Pace" Grid.Column="0" Grid.Row="5" Style="{StaticResource StandardLabel}"/>
+                <Label Text="0" x:Name="lblAveragePace" Grid.Column="0" Grid.Row="6" Style="{StaticResource StandardLabel}"/>
+                <Button Text="Start" x:Name="btnStart" Clicked="BtnStart_Clicked" Grid.Column="0" Grid.Row="8" Style="{StaticResource StandardButton}"/>
+                <Button Text="Lock" x:Name="btnLock" Grid.Column="1" Grid.Row="8" Clicked="BtnLock_Clicked" Style="{StaticResource StandardButton}"/>
+                <Button Text="Stop" x:Name="btnStop" Grid.Column="2" Grid.Row="8" Clicked="BtnStop_Clicked" Style="{StaticResource StandardButton}"/>
+                <Label x:Name="lblx" Text="0" Grid.Row="7" Grid.Column="0" Style="{StaticResource StandardLabel}"/>
+                <Label x:Name="lbly" Text="0" Grid.Row="7" Grid.Column="1" Style="{StaticResource StandardLabel}"/>
+                <Label x:Name="lblz" Text="0" Grid.Row="7" Grid.Column="2" Style="{StaticResource StandardLabel}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

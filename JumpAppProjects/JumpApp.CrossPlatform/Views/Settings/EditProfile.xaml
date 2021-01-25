@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Local="clr-namespace:JumpApp.Controls"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="JumpApp.Views.Settings.EditProfile"
+             x:Name="Page">
+    <NavigationPage.TitleView>
+        <Label Text="Edit Profile" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
+            <StackLayout>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ffimageloading:CachedImage x:Name="imgProfile" Margin="5" DownsampleToViewSize="true" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"
+                         Source="{Binding ProfileImageSource}" WidthRequest="{Binding ProfileImageWidth}" HeightRequest="{Binding ProfileImageHeight}" LoadingPlaceholder = "{Binding DefaultImage}"
+                        Grid.Row="1" Grid.Column="1" Grid.RowSpan="7"  ErrorPlaceholder = "{Binding DefaultImage}">
+
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                        <ffimageloading:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeProfileImageCommand}"></TapGestureRecognizer>
+                        </ffimageloading:CachedImage.GestureRecognizers>
+                    </ffimageloading:CachedImage>
+                    <Local:CircleCountdown VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  Progress="{Binding RankProgress}" ProgressStartColor="{StaticResource LightRed}" ProgressEndColor="{StaticResource LightRed}"
+                        StrokeWidth="15"  Grid.Row="1" Grid.Column="1" Grid.RowSpan="7" />
+
+                    <Label Text="{Binding UserName}" x:Name="lblName" Grid.Column="2" Grid.Row="2" Style="{StaticResource StandardLabel}"/>
+                    <Label Text="{Binding RankTitle}" x:Name="lblRank" Grid.Column="2" Grid.Row="3" Style="{StaticResource StandardLabel}"/>
+                    <Label Text="{Binding TotalJumps}" x:Name="lblTotalJumps" Grid.Column="2" Grid.Row="4" Style="{StaticResource StandardLabel}"/>
+                    <Label Text="{Binding Active}" TextColor="{Binding ActiveColour}" x:Name="lblLastActive" Grid.Column="2" Grid.Row="5" Style="{StaticResource StandardLabel}"/>
+                </Grid>
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="150"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Text="Change Profile Information" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource StandardLabel}"/>
+                    <Label Text="UserName" Grid.Column="1" Grid.Row="1" Style="{StaticResource StandardLabel}"/>
+                    <Entry x:Name="entryUserName" BackgroundColor="{StaticResource BackgroundLight}" Style="{StaticResource StandardEntry}" Keyboard="Telephone" Grid.Column="1" Grid.Row="2" Text="{Binding UserName}" HeightRequest="40" Placeholder="Weight" HorizontalOptions="FillAndExpand" />
+                    <Label Text="Gender" Grid.Column="2" Grid.Row="1" Style="{StaticResource StandardLabel}"/>
+                    <Local:CustomPicker x:Name="pickerGender" SelectedItem="{Binding Gender}" Style="{StaticResource StandardPicker}" Title="Gender" Grid.Column="2" Grid.Row="2" HeightRequest="40" HorizontalOptions="CenterAndExpand">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Male</x:String>
+                                <x:String>Female</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Local:CustomPicker>
+                    <Label Text="Weight(KG)" Grid.Column="1" Grid.Row="3" Style="{StaticResource StandardLabel}"/>
+                    <Entry x:Name="entryWeight" Keyboard="Telephone" Grid.Column="1" Style="{StaticResource StandardEntry}" Grid.Row="4" Text="{Binding Weight}" HeightRequest="40" BackgroundColor="{StaticResource BackgroundLight}" Placeholder="Weight" HorizontalOptions="FillAndExpand" />
+                    <DatePicker x:Name="datePickerDOB" Format="D" Date="{Binding DOB}" MinimumDate="01/01/1950" Style="{StaticResource StandardDatePicker}"
+                    MaximumDate="12/31/2020" Grid.Column="1" Grid.Row="5"  BackgroundColor="{StaticResource BackgroundLight}" HeightRequest="40" HorizontalOptions="FillAndExpand" />
+                    <Label Text="Height(CM)" Grid.Column="2" Grid.Row="3" Style="{StaticResource StandardLabel}"/>
+                    <Entry x:Name="entryHeight" Keyboard="Telephone" Text="{Binding Height}" Style="{StaticResource StandardEntry}" BackgroundColor="{StaticResource BackgroundLight}" Grid.Column="2" Grid.Row="4" HeightRequest="40" Placeholder="Height" HorizontalOptions="FillAndExpand" />
+                    <Button Text="Update Details" Command="{Binding UpdateUserInfoCommand}" Style="{StaticResource GreenButton}" Grid.Column="2" Grid.Row="5"></Button>
+                </Grid>
+            </StackLayout>
+            <Frame x:Name="frame" HorizontalOptions="Center" WidthRequest="350" BorderColor="Black" HeightRequest="350" CornerRadius="35">
+                <Grid x:Name="grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

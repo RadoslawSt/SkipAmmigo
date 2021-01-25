@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpApp.Styles.Fonts">
+
+    <!-- Fonts -->
+    <OnPlatform 
+        x:Key="MontserratLight"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-Light"
+        Android="Montserrat-Light.otf#" />
+
+    <OnPlatform 
+        x:Key="MontserratThin"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-Thin"
+        Android="Montserrat-Thin.otf#" />
+
+    <OnPlatform 
+        x:Key="MontserratRegular"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-Regular"
+        Android="Montserrat-Regular.otf#" />
+
+    <OnPlatform 
+        x:Key="MontserratItalic"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-Italic"
+        Android="Montserrat-Italic.otf#" />
+
+    <OnPlatform 
+        x:Key="MontserratBoldItalic"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-BoldItalic"
+        Android="Montserrat-BoldItalic.otf#" />
+
+    <OnPlatform 
+        x:Key="MontserratSemiBold"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-SemiBold"
+        Android="Montserrat-SemiBold.otf#" />
+    <OnPlatform 
+        x:Key="MontserratBlack"
+        x:TypeArguments="x:String"
+        iOS="Montserrat-Black"
+        Android="Montserrat-Black.otf#" />
+
+
+    <!-- Font sizes  -->
+    <x:Double x:Key="FontSize10">10</x:Double>
+    <x:Double x:Key="FontSize12">12</x:Double>
+    <x:Double x:Key="FontSize13">13</x:Double>
+    <x:Double x:Key="FontSize14">14</x:Double>
+    <x:Double x:Key="FontSize16">16</x:Double>
+    <x:Double x:Key="FontSize18">18</x:Double>
+    <x:Double x:Key="FontSize20">20</x:Double>
+    <x:Double x:Key="FontSize22">22</x:Double>
+    <x:Double x:Key="FontSize24">24</x:Double>
+    <x:Double x:Key="FontSize26">26</x:Double>
+    <x:Double x:Key="FontSize28">28</x:Double>
+    <x:Double x:Key="FontSize36">36</x:Double>
+    <x:Double x:Key="FontSize40">40</x:Double>
+    <x:Double x:Key="FontSize44">44</x:Double>
+    <x:Double x:Key="FontSize60">60</x:Double>
+</ResourceDictionary>

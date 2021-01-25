@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="JumpApp.Views.MainPage"
+             xmlns:Local="clr-namespace:JumpApp.Controls"             
+             xmlns:customControls="clr-namespace:JumpApp.Controls;assembly=JumpApp"
+             NavigationPage.HasNavigationBar="False"
+                  NavigationPage.HasBackButton="False"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true">
+    <NavigationPage.TitleView>
+        
+        <Label Text="" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu" Icon="GreenArrow.png" NavigationPage.HasBackButton="False" NavigationPage.HasNavigationBar="False">
+                
+
+            <StackLayout Orientation="Vertical">
+                <ListView x:Name="navigationDrawerList" RowHeight="55" SeparatorVisibility="None" ItemTapped="Handle_ItemTapped" BackgroundColor="{StaticResource BackgroundDark}">
+                    <ListView.Header>
+                        <!--<Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="280"/>
+                                <ColumnDefinition Width="1"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="75"/>
+                                <RowDefinition Height="75"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="1"/>
+                            </Grid.RowDefinitions>-->
+                            <!--<Frame OutlineColor="Accent" BackgroundColor="{StaticResource BackgroundLight}" Grid.Column="1" Grid.Row="1"  Grid.RowSpan="4">-->
+                                
+                                    <Image Source="Logo2.png"></Image>
+                                
+                            <!--</Frame>-->
+                            <!--<ffimageloading:CachedImage Margin="4" x:Name="imgProfile" Grid.Column="1" Grid.Row="1"  Grid.RowSpan="2" VerticalOptions="Start" HorizontalOptions="Start">
+                                <ffimageloading:CachedImage.Transformations>
+                                    <fftransformations:CircleTransformation />
+                                </ffimageloading:CachedImage.Transformations>
+                            </ffimageloading:CachedImage>
+
+                            <Local:CircleCountdown x:Name="profileImageProgress" VerticalOptions="Start" HorizontalOptions="Start" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+                                WidthRequest="150" HeightRequest="150" ProgressStartColor="Green" ProgressEndColor="Green"  StrokeWidth="20"/>-->
+
+                            <!--<Label Margin="10,0,0,0" Grid.Column="1" Grid.Row="5" Text="Jump App" Style="{StaticResource SideMenuUserInfoLabel}"/>-->
+                            <!--<Label Margin="0,0,0,0" Grid.Column="1" Grid.Row="3" Text="Email" x:Name="lblEmail" Style="{StaticResource SideMenuUserInfoLabel}"/>
+                            <Label Margin="0,0,0,0" Grid.Row="4"  Grid.Column="1" Text="Name"  x:Name="lblName" Style="{StaticResource SideMenuUserInfoLabel}"/>-->
+                        <!--</Grid>-->
+                    </ListView.Header>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <customControls:ExtendedViewCell SelectedBackgroundColor="White">
+                                <ViewCell.View>
+                                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal" Padding="20,10,0,10" Spacing="5">
+                                        <Image Source="{Binding Icon}" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" />
+                                        <Label Text="{Binding Title}" Style="{StaticResource SideMenuUserInfoLabel}"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </customControls:ExtendedViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+
+    <MasterDetailPage.Detail>
+
+        <NavigationPage BarBackgroundColor="#ff0066" BarTextColor="White">
+            <x:Arguments>
+
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms" 
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                  xmlns:Local="clr-namespace:JumpApp.Controls"
+                  xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                  xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                  x:Class="JumpApp.Views.PostWorkoutPopupPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" WidthRequest="500" HeightRequest="500" RowSpacing="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175"></ColumnDefinition>
+                <ColumnDefinition Width="175"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="350"></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ffimageloading:CachedImage HorizontalOptions="CenterAndExpand" WidthRequest="300" HeightRequest="300" VerticalOptions="CenterAndExpand" Source="{Binding ProfileImage}"
+                                        x:Name="profileImage" Margin="35" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation />
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
+            <Local:CircleCountdown WidthRequest="300" HeightRequest="300" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                       Progress="{Binding Progress}" ProgressStartColor="{StaticResource LightRed}" ProgressEndColor="{StaticResource LightRed}" StrokeWidth="35"/>
+
+            <Label Text="Experience" x:Name="lblExperience" Grid.Column="0" Grid.Row="0" Style="{StaticResource PostWorkoutLabel}" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+            <Button x:Name="btnAccept" Text="Ok"  Grid.Column="0" Grid.Row="1" Command="{Binding AcceptCommand}" WidthRequest="150" BorderWidth="3" Style="{StaticResource TransparentButton}"></Button>
+            <Button x:Name="btnWorkoutStats" Text="Go to workout stats"  Grid.Column="1" Grid.Row="1" Clicked="BtnWorkoutStats_Clicked" WidthRequest="150"  BorderWidth="3" Style="{StaticResource TransparentButton}"></Button>
+        </Grid>
+    </StackLayout>
+</pages:PopupPage>

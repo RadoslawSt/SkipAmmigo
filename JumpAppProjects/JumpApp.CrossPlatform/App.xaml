@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:styles="clr-namespace:JumpApp.Styles"
+             x:Class="JumpApp.App">
+	<Application.Resources>
+		<ResourceDictionary>
+            <!--Global Styles-->
+            <!--OTHER STYLES-->
+            <Color x:Key="NavigationPrimary">#272727</Color>
+            <Color x:Key="BackgroundLight">#2E4057</Color>
+            <Color x:Key="BackgroundDark">#272727</Color>
+            <Color x:Key="MintCream">#F7FFF6</Color>
+            <Color x:Key="LightRed">#EA695C</Color>
+
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="BarTextColor" Value="White" />
+                
+            </Style>
+            
+            <!--LABELS-->
+            <Style x:Key="StandardLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize16}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                
+            </Style>
+          
+            <Style x:Key="StandardPicker" TargetType="Picker">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize16}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                
+            </Style>
+            <Style x:Key="StandardEntry" TargetType="Entry">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize16}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+
+            </Style>
+            <Style x:Key="StandardDatePicker" TargetType="DatePicker">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize16}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                
+
+            </Style>
+            <Style x:Key="NavigationLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize20}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+            
+            <Style x:Key="WelcomeLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratBoldItalic}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize20}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                
+            </Style>
+            <Style x:Key="SideMenuUserInfoLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize16}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+            <Style x:Key="WorkoutLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize36}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+            </Style>
+            <Style x:Key="PostWorkoutLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratBoldItalic}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize24}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+
+            </Style>
+            <Style x:Key="SettingTitleLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratBoldItalic}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize20}" />
+                <Setter Property="TextColor" Value="{StaticResource BlackColour}" />
+
+            </Style>
+            <Style x:Key="MyWorkoutLabel" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratRegular}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize14}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                
+
+            </Style>
+            <!--BUTTONS-->
+            <Style x:Key="StandardButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratSemiBold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize18}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource RaisinBlack}"/>
+                
+                <Setter Property="HorizontalOptions" Value="Center" />
+
+            </Style>
+            <Style x:Key="PostWorkoutButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratSemiBold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize18}" />
+                <Setter Property="TextColor" Value="{StaticResource BlackColour}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+
+            </Style>
+            <Style x:Key="RedButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratSemiBold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize18}" />
+                <Setter Property="TextColor" Value="{StaticResource LightRed}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource RaisinBlack}"/>
+                <Setter Property="HorizontalOptions" Value="Center" />
+
+            </Style>
+            <Style x:Key="GreenButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratSemiBold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize18}" />
+                <Setter Property="TextColor" Value="{StaticResource DarkGreen}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource RaisinBlack}"/>
+                <Setter Property="HorizontalOptions" Value="Center" />
+
+            </Style>
+            <Style x:Key="TransparentButton" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource MontserratSemiBold}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize18}" />
+                <Setter Property="TextColor" Value="{StaticResource MintCream}" />
+                <Setter Property="BorderWidth" Value="3"/>
+                <Setter Property="BorderColor" Value="{StaticResource LightRed}"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <styles:Colours />
+                <styles:Fonts />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+	</Application.Resources>
+</Application>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage 
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+            xmlns:imgcrop="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.ImageCropView"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             x:Class="JumpApp.Views.MyPopupPage">
+
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20, 20, 20, 20">
+        <StackLayout IsVisible="{Binding FirstScreenVisibility}">
+            <Button Text="Take a Picture" x:Name="btnTakePic" Command="{Binding TakePictureCommand}" WidthRequest="200" CommandParameter="{x:Reference cropView}" Style="{StaticResource TransparentButton}"></Button>
+            <Button Text="Select a Picture" x:Name="btnSelectPic" Command="{Binding SelectPictureCommand}" WidthRequest="200" CommandParameter="{x:Reference cropView}" Style="{StaticResource TransparentButton}"></Button>
+        </StackLayout>
+        <StackLayout IsVisible="{Binding SecondScreenVisibility}">
+            <Label Text="Picture Placement" Style="{StaticResource StandardLabel}"></Label>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Frame BorderColor="#EA695C" BackgroundColor="{StaticResource BackgroundLight}" Grid.Row="0" Grid.Column="0" Padding="-10,2">
+                    <imgcrop:ImageCropView HeightRequest="300" WidthRequest="300" x:Name="cropView" ManualOffsetX="{Binding XOffset}" ManualOffsetY="{Binding YOffset}" ManualZoom="{Binding Zoom}"
+                    PreviewTransformations="{Binding PreviewTransformations}" ImageRotation="{Binding Rotation}" Source="{Binding SavedImage}" Grid.Row="0" Grid.Column="0"/>
+                    
+                </Frame>
+                <ffimageloading:CachedImage IsVisible="{Binding GifVisibility}" Source="Swipe_Left.gif" Grid.Column="0" Grid.Row="0" WidthRequest="50" HeightRequest="50"></ffimageloading:CachedImage>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout IsVisible="{Binding SecondScreenVisibility}">
+            <Label Text="Picture Preview" Style="{StaticResource StandardLabel}"></Label>
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="38"></RowDefinition>
+                    <RowDefinition Height="38"></RowDefinition>
+                    <RowDefinition Height="38"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ffimageloading:CachedImage HorizontalOptions="Center" Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" HeightRequest="150" WidthRequest="150" Source="{Binding DisplayImage}">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:CircleTransformation BorderSize="3" BorderHexColor="#EA695C"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+
+                <!--<Button HorizontalOptions="FillAndExpand" x:Name="rotateButton" Text="Rotate" Command="{Binding RotateCommand}"/>-->
+                <Button HorizontalOptions="FillAndExpand" x:Name="btnPreview"  Text="Preview" Grid.Column="1" Grid.Row="1" Style="{StaticResource StandardButton}" Command="{Binding PreviewPictureCommand}" CommandParameter="{x:Reference cropView}"/>
+                <Button HorizontalOptions="FillAndExpand" x:Name="btnConfirm" Text="Confirm" Grid.Column="1" Grid.Row="2" Command="{Binding ConfirmPictureCommand}" Style="{StaticResource GreenButton}"/>
+                <Button HorizontalOptions="FillAndExpand" x:Name="btnCancel" Text="Cancel" Grid.Column="1" Grid.Row="3" Command="{Binding CancelPictureCommand}" Style="{StaticResource RedButton}"/>
+            </Grid>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

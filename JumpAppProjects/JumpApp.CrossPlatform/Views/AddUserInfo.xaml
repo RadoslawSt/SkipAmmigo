@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="JumpApp.Views.AddUserInfo" xmlns:local="clr-namespace:JumpApp.Views">
+    <NavigationPage.TitleView>
+        <Label Text="User Info" Style="{StaticResource NavigationLabel}"></Label>
+    </NavigationPage.TitleView>
+    <StackLayout Spacing="12">
+        <Label Text="Weight" Style="{StaticResource StandardLabel}"></Label>
+        <Entry x:Name="txtWeight" Keyboard="Telephone" Text="{Binding Weight}" HeightRequest="40" BackgroundColor="White" Placeholder="Weight" HorizontalOptions="FillAndExpand"/>
+        <Label Text="Height" Style="{StaticResource StandardLabel}"></Label>
+        <Entry x:Name="txtHeight" Keyboard="Telephone" Text="{Binding Height}" BackgroundColor="White" HeightRequest="40" Placeholder="Height" HorizontalOptions="FillAndExpand"/>
+        <StackLayout Orientation="Horizontal">
+            <Picker x:Name="GenderPicker" SelectedItem="{Binding Gender}" Title="Gender" BackgroundColor="White" HeightRequest="40" HorizontalOptions="FillAndExpand">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Male</x:String>
+                        <x:String>Female</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+        </StackLayout>
+        <DatePicker x:Name="txtDOB" Date="{Binding DOB}" BackgroundColor="White" HeightRequest="40" HorizontalOptions="FillAndExpand"/>
+        <Button x:Name="SubmitButton" Command="{Binding AddUserInfoCommand}" BorderRadius="0" Text="Next" BackgroundColor="#5989B5" Style="{StaticResource StandardButton}"/>
+        <Label Text="View All Contacts" IsVisible="{Binding IsViewAll}" x:Name="ViewLbl" HorizontalOptions="EndAndExpand" Style="{StaticResource StandardLabel}">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ViewAllContactsCommand}" NumberOfTapsRequired="1" />
+            </Label.GestureRecognizers>
+        </Label>
+    </StackLayout>
+</ContentPage>
