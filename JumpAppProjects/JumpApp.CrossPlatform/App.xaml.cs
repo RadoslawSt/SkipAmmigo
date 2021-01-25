@@ -24,8 +24,7 @@ namespace JumpApp
             
             DependencyService.Register<IAzureRestService, AzureRestService>();
             DependencyService.Register<IRepositoryWrapper, RepositoryWrapper>();
-            DependencyService.Register<B2CAuthenticationService>();
-            
+            DependencyService.Register<B2CAuthenticationService>();           
           
             Device.SetFlags(new[] {
                 "CarouselView_Experimental",
