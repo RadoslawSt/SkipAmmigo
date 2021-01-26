@@ -19,5 +19,7 @@ namespace JumpApp.Models
         public DateTime LastActiveDateTime { get; set; }
         public string UserName { get; set; }
         public int ProfileImageExtension { get; set; }
+        public string FriendsID { get; set; }
+        public string PendingID { get; set; }
     }
 }

@@ -42,12 +42,14 @@ namespace JumpApp.Views.Settings
             supportMenuList = new List<AccountSettingsPageItem>();
 
             var setting1 = new AccountSettingsPageItem() { id = 1, Title = "Edit Profile", IconStart = "EditUser.png", IconEnd = "Next.png" };
-            var setting2 = new AccountSettingsPageItem() { id = 2, Title = "Adjust Calibration", IconStart = "Sliders.png", IconEnd = "Next.png" };
-            var setting3 = new AccountSettingsPageItem() { id = 3, Title = "Link Account", IconStart = "Configuration.png", IconEnd = "Next.png" };
+            var setting2 = new AccountSettingsPageItem() { id = 2, Title = "Friends", IconStart = "Crowd.png", IconEnd = "Next.png" };
+            var setting3 = new AccountSettingsPageItem() { id = 3, Title = "Adjust Calibration", IconStart = "Sliders.png", IconEnd = "Next.png" };
+            var setting4 = new AccountSettingsPageItem() { id = 4, Title = "Link Account", IconStart = "Configuration.png", IconEnd = "Next.png" };
 
             accountMenuList.Add(setting1);
             accountMenuList.Add(setting2);
             accountMenuList.Add(setting3);
+            accountMenuList.Add(setting4);
 
             lvAccount.ItemsSource = accountMenuList;
 
@@ -76,6 +78,10 @@ namespace JumpApp.Views.Settings
                             await Navigation.PushAsync(new EditProfile());
                             //await Navigation.PushAsync(new CustomNavigationPage((Page)Activator.CreateInstance(typeof(EditProfile))));
                         
+                        break;
+                    case "Friends":
+                        await Navigation.PushAsync(new FriendsPage());
+
                         break;
                     case "Adjust Calibration":
                         await Navigation.PushAsync(new ShakeSetup());

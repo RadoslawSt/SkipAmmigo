@@ -7,7 +7,7 @@
              xmlns:customControls="clr-namespace:JumpApp.Controls;assembly=JumpApp"
               xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
               xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
             ios:Page.UseSafeArea="true"
              x:Class="JumpApp.Views.Home.HomePage">
 

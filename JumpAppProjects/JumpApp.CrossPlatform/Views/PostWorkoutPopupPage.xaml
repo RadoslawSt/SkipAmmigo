@@ -41,7 +41,7 @@
 
             <Label Text="Experience" x:Name="lblExperience" Grid.Column="0" Grid.Row="0" Style="{StaticResource PostWorkoutLabel}" Grid.ColumnSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
             <Button x:Name="btnAccept" Text="Ok"  Grid.Column="0" Grid.Row="1" Command="{Binding AcceptCommand}" WidthRequest="150" BorderWidth="3" Style="{StaticResource TransparentButton}"></Button>
-            <Button x:Name="btnWorkoutStats" Text="Go to workout stats"  Grid.Column="1" Grid.Row="1" Clicked="BtnWorkoutStats_Clicked" WidthRequest="150"  BorderWidth="3" Style="{StaticResource TransparentButton}"></Button>
+            <Button x:Name="btnWorkoutStats" Text="Workout stats"  Grid.Column="1" Grid.Row="1" Clicked="BtnWorkoutStats_Clicked" WidthRequest="150"  BorderWidth="3" Style="{StaticResource TransparentButton}"></Button>
         </Grid>
     </StackLayout>
 </pages:PopupPage>

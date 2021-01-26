@@ -8,6 +8,7 @@ using FluentValidation;
 using Xamarin.Forms;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace JumpApp.ViewModels
 {
@@ -18,6 +19,8 @@ namespace JumpApp.ViewModels
         public INavigation navigation;
         public UserInfoValidator userValidator;
         public IUserInfoRepository userRepo;
+        public ObservableCollection<UserInfo> pendingFriendList = new ObservableCollection<UserInfo>();
+        public ObservableCollection<string[]> friendList = new ObservableCollection<string[]>();
 
         //Core User Info
         public int Weight
@@ -55,6 +58,7 @@ namespace JumpApp.ViewModels
                 NotifyPropertyChanged("ProfileImageSource");
             }
         }
+        
         public int ProfileImageExtension
         {
             get => publicUserInfo.ProfileImageExtension;
@@ -165,6 +169,47 @@ namespace JumpApp.ViewModels
                 NotifyPropertyChanged("LastActiveDateTime");
             }
         }
+        public string FriendsID
+        {
+            get => publicUserInfo.FriendsID;
+            set
+            {
+                publicUserInfo.FriendsID = value;
+                NotifyPropertyChanged("FriendsID");
+            }
+        }
+        public string PendingID
+        {
+            get => publicUserInfo.PendingID;
+            set
+            {
+                publicUserInfo.PendingID = value;
+                NotifyPropertyChanged("PendingID");
+            }
+        }
+        public ObservableCollection<string> FriendList
+        {
+            get
+            {
+                string[] friendIDs = publicUserInfo.FriendsID.Split(',');
+                ObservableCollection<string> friendIDsCollection = new ObservableCollection<string>();
+                foreach (var i in friendIDs)
+                {
+                    friendIDsCollection.Add(i);
+                }
+                return friendIDsCollection;
+            }
+            set
+            {
+                FriendList = value;
+            }
+        }
+        public ObservableCollection<UserInfo> PendingFriendList
+        {
+            get { return pendingFriendList; }
+            set { pendingFriendList = value; }
+        }
+
         public string UserName
         {
             get => publicUserInfo.UserName;

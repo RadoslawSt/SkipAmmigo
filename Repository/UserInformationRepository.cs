@@ -15,9 +15,15 @@ namespace Repository
 
         }
 
-        public UserInformation GetUserInformation(string loginID)
+        public UserInformation GetUserInformationByLogin(string loginID)
         {
             return FindByCondition(owner => owner.LoginId.Equals(loginID))
+            .DefaultIfEmpty(new UserInformation())
+            .FirstOrDefault();
+        }
+        public UserInformation GetUserInformationById(int id)
+        {
+            return FindByCondition(owner => owner.Id.Equals(id))
             .DefaultIfEmpty(new UserInformation())
             .FirstOrDefault();
         }

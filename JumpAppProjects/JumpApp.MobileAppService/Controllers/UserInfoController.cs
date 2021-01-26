@@ -24,15 +24,25 @@ namespace JumpApp.MobileAppService.Controllers
         public UserInformation GetPublicUserInfo(string loginId)
         {
             //Guid result = Guid.Parse(Id);
-            var userInfo = repoWrapper.UserInfo.GetUserInformation(loginId);
+            var userInfo = repoWrapper.UserInfo.GetUserInformationByLogin(loginId);
             return userInfo;
         }
+        //using this one
         [Route("[action]/{LoginId}")]
         [HttpGet]
         public UserInformation GetPublicUserInfoLogin(string LoginId)
         {
             //Guid result = Guid.Parse(Id);
-            var UserInfo = repoWrapper.UserInfo.GetUserInformation(LoginId);
+            var UserInfo = repoWrapper.UserInfo.GetUserInformationByLogin(LoginId);
+            return UserInfo;
+        }
+
+        [Route("[action]/{Id}")]
+        [HttpGet]
+        public UserInformation GetPublicUserInfoId(int Id)
+        {
+            //Guid result = Guid.Parse(Id);
+            var UserInfo = repoWrapper.UserInfo.GetUserInformationById(Id);
             return UserInfo;
         }
         [HttpPost]
@@ -63,7 +73,7 @@ namespace JumpApp.MobileAppService.Controllers
                 {
                     return BadRequest("Invalid State");
                 }
-                var dbUserInfo = repoWrapper.UserInfo.GetUserInformation(Id);
+                var dbUserInfo = repoWrapper.UserInfo.GetUserInformationByLogin(Id);
 
                 repoWrapper.UserInfo.UpdateUserInformation(dbUserInfo, userInformation);
             }

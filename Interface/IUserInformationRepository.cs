@@ -6,7 +6,8 @@ namespace Interface
 {
     public interface IUserInformationRepository
     {
-        UserInformation GetUserInformation(string loginId);
+        UserInformation GetUserInformationByLogin(string loginId);
+        UserInformation GetUserInformationById(int Id);
         void CreateUserInformation(UserInformation userInformation);
         void UpdateUserInformation(UserInformation dbUserInfo, UserInformation userInfo);
         

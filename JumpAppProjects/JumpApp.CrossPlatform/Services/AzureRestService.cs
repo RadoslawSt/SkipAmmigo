@@ -142,6 +142,15 @@ namespace JumpApp.Services
 
             return null;
         }
+        public async Task<UserInfo> GetPublicUserInfo(int Id)
+        {
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                var json = await client.GetStringAsync($"api/UserInfo/GetPublicUserInfoId/{Id}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<UserInfo>(json));
+            }
+            return null;
+        }
         public async Task<WorkoutSession> GetWorkoutSessionById(int workoutSessionId)
         {
             if (CrossConnectivity.Current.IsConnected)
