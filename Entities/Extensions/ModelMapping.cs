@@ -35,6 +35,8 @@ namespace Entities.Extensions
             dbUserInfo.LastActiveDateTime = userInfo.LastActiveDateTime;
             dbUserInfo.UserName = userInfo.UserName;
             dbUserInfo.ProfileImageExtension = userInfo.ProfileImageExtension;
+            dbUserInfo.FriendsID = userInfo.FriendsID;
+            dbUserInfo.PendingID = userInfo.PendingID;
         }
     }
 }
