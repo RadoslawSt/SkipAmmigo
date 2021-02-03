@@ -12,17 +12,17 @@ using Xamarin.Forms;
 
 namespace JumpApp.ViewModels
 {
-   public class FriendsViewModel : BaseUserViewModel
+    public class FriendsViewModel : BaseUserViewModel
     {
         private IAzureRestService azureRestServ = new AzureRestService();
         public ICommand ConfirmPendingFriendCommand { get; private set; }
         public ICommand CancelPendingFriendCommand { get; private set; }
-      
-        public string PFName { get; set; }
-        public DateTime PFLastActive { get; set; }
-        public UserInfo PFTopUser { get; set; }
-        public string PFLoginID { get; set; }
-        public string PFProfileImageExtension { get; set; }
+
+        //public string PFName { get; set; }
+        //public DateTime PFLastActive { get; set; }
+        //public UserInfo PFTopUser { get; set; }
+        //public string PFLoginID { get; set; }
+        //public string PFProfileImageExtension { get; set; }
 
         public FriendsViewModel()
         {
@@ -33,11 +33,11 @@ namespace JumpApp.ViewModels
             CancelPendingFriendCommand = new Command(async () => await CancelFriend());
             //var ok = publicUserInfo.PendingID.Split(',');
 
-            
+
             SetupPendingFriend();
             SetupFriend();
             //PendingFriendList = new ObservableCollection<string[]>();
-            
+
             //Task.Run(async () => {await SetUpLabels(); });
 
             //foreach (var i in PendingFriendList)
@@ -47,8 +47,10 @@ namespace JumpApp.ViewModels
         }
         private void SetupPendingFriend()
         {
+            PendingFriendList = new ObservableCollection<UserInfo>();
             foreach (var i in publicUserInfo.PendingID.Split(','))
             {
+                var test = Convert.ToInt32(i);
                 var pendingFriend = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(Convert.ToInt32(i)); }).Result;
                 PendingFriendList.Add(pendingFriend);
             }
@@ -66,7 +68,8 @@ namespace JumpApp.ViewModels
         }
         private void SetupFriend()
         {
-            foreach(var i in publicUserInfo.FriendsID.Split(','))
+            FriendList = new ObservableCollection<UserInfo>();
+            foreach (var i in publicUserInfo.FriendsID.Split(','))
             {
                 var friend = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(Convert.ToInt32(i)); }).Result;
                 FriendList.Add(friend);
@@ -74,11 +77,37 @@ namespace JumpApp.ViewModels
         }
         private async Task ConfirmFriend()
         {
+            List<string> testnumber = new List<string>();
+            string newNumber = "";
+            foreach (var i in publicUserInfo.PendingID.Split(','))
+            {
 
+                if(i == PFTopUser.Id.ToString())
+                {
+
+                }
+                else
+                {
+                    testnumber.Add(i);
+                }
+                
+            }
+            foreach(var id in testnumber)
+            {
+                newNumber += id + ",";
+            }
+
+            publicUserInfo.PendingID = newNumber.Remove(newNumber.Length - 1);
+            publicUserInfo.FriendsID = publicUserInfo.FriendsID + "," + PFTopUser.Id;
+            await azureRestServ.UpdatePublicUserInfo(publicUserInfo);
+
+            SetupPendingFriend();
+            SetupFriend();
+            var stop = "";
         }
         private async Task CancelFriend()
         {
 
         }
-        }
+    }
 }

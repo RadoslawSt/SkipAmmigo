@@ -17,9 +17,9 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
             <Label x:Name="lblProfileImageExtension" IsVisible="False" Text="{Binding PFProfileImageExtension}"></Label>
-            
-            
-            <Grid Padding="5" RowSpacing="10" ColumnSpacing="10">
+
+           
+                            <Grid Padding="5" RowSpacing="10" ColumnSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
@@ -42,6 +42,7 @@
 
                 <Label Grid.Column="1" Grid.Row="1" Text="{Binding PFName}" VerticalOptions="Center" Style="{StaticResource StandardLabel}"/>
                 <Label Grid.Column="2" Grid.Row="1" Text="{Binding PFLastActive, StringFormat='{0:M}'}" VerticalOptions="Center" Style="{StaticResource StandardLabel}"/>
+                                
                 <Button HorizontalOptions="FillAndExpand" x:Name="btnConfirm" Text="Confirm" Grid.Column="0" Grid.Row="2" Command="{Binding ConfirmPendingFriendCommand}" Style="{StaticResource GreenButton}"/>
                 <Button HorizontalOptions="FillAndExpand" x:Name="btnCancel" Text="Cancel" Grid.Column="2" Grid.Row="2" Command="{Binding CancelPendingFriendCommand}" Style="{StaticResource RedButton}"/>
                 <!--<Label Grid.Column="1"  Grid.Row="1" VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
@@ -52,7 +53,7 @@
                 <Label Grid.Column="3" Grid.Row="1" x:Name="lblTime" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding DateTime, StringFormat='{}{0:H\\:mm}'}" Style="{StaticResource StandardLabel}"/>-->
             </Grid>
             <Label Grid.Column="0" Grid.Row="0" Text="Friends" Grid.ColumnSpan="2" VerticalOptions="Center" HorizontalOptions="Start"  Style="{StaticResource StandardLabel}"/>
-            <ListView ItemsSource="{Binding FriendList}" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvWorkoutList" CachingStrategy="RecycleElementAndDataTemplate">
+            <ListView ItemsSource="{Binding FriendList}" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvFriendList" CachingStrategy="RecycleElementAndDataTemplate">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
