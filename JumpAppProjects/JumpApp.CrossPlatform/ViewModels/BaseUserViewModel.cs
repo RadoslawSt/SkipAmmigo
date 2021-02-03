@@ -20,7 +20,7 @@ namespace JumpApp.ViewModels
         public UserInfoValidator userValidator;
         public IUserInfoRepository userRepo;
         public ObservableCollection<UserInfo> pendingFriendList = new ObservableCollection<UserInfo>();
-        public ObservableCollection<string[]> friendList = new ObservableCollection<string[]>();
+        public ObservableCollection<UserInfo> friendList = new ObservableCollection<UserInfo>();
 
         //Core User Info
         public int Weight
@@ -187,22 +187,11 @@ namespace JumpApp.ViewModels
                 NotifyPropertyChanged("PendingID");
             }
         }
-        public ObservableCollection<string> FriendList
+        public ObservableCollection<UserInfo> FriendList
         {
-            get
-            {
-                string[] friendIDs = publicUserInfo.FriendsID.Split(',');
-                ObservableCollection<string> friendIDsCollection = new ObservableCollection<string>();
-                foreach (var i in friendIDs)
-                {
-                    friendIDsCollection.Add(i);
-                }
-                return friendIDsCollection;
-            }
-            set
-            {
-                FriendList = value;
-            }
+            get { return friendList; }
+            set { friendList = value; }
+           
         }
         public ObservableCollection<UserInfo> PendingFriendList
         {

@@ -27,9 +27,21 @@ namespace JumpApp.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Label lblProfileExtension = (Label)parameter;
-            var testSplit = lblProfileExtension.Text.Split('|');
-            string profileExtension = testSplit[0];
-            string hasProfileImage = testSplit[1];
+            string profileExtension = "";
+            string hasProfileImage = "";
+
+            if (lblProfileExtension.Text == null || lblProfileExtension.Text == "")
+            {
+                profileExtension = lblProfileExtension.FormattedText.Spans[0].Text;
+                hasProfileImage = lblProfileExtension.FormattedText.Spans[2].Text;
+            }
+            else
+            {
+                var testSplit = lblProfileExtension.Text.Split('|');
+                profileExtension = testSplit[0];
+                hasProfileImage = testSplit[1];
+            }
+            
             
             // repetitionCheck = publicUserInfo.ProfileImageExtension;
             //if(repetitionCheck != publicUserInfo.ProfileImageExtension)

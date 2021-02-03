@@ -26,7 +26,7 @@ namespace JumpApp.ViewModels
         public DateTime dateTime { get; set; }
         private readonly IRepositoryWrapper repoWrapper;
         Image imgProfile { get; set; }
-        public ImageSource imageUri { get; set; }
+        //public ImageSource imageUri { get; set; }
         public string lblName { get; set; }
         public string profileImageExtension { get; set; }
         public UserInfo publicUserInfo { get; set; }
@@ -55,7 +55,7 @@ namespace JumpApp.ViewModels
 
             //imgProfile = B2CAuthenticationService.GetUserImage();
             //imageUri = imgProfile.Source;
-            imageUri = ImageSource.FromUri(new Uri("https://jumpappbackendservice.blob.core.windows.net/profileimages/" + App.userContext.UserIdentifier + publicUserInfo.ProfileImageExtension.ToString()));
+           // imageUri = ImageSource.FromUri(new Uri("https://jumpappbackendservice.blob.core.windows.net/profileimages/" + App.userContext.UserIdentifier + publicUserInfo.ProfileImageExtension.ToString()));
             lblName = "Hello " + App.userContext.Name;
             foreach (var item in WorkoutSessionList)
             {
