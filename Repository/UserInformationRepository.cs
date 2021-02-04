@@ -27,6 +27,12 @@ namespace Repository
             .DefaultIfEmpty(new UserInformation())
             .FirstOrDefault();
         }
+        public UserInformation GetUserInformationByFriendlyLogin(string friendlyLogin)
+        {
+            return FindByCondition(owner => owner.FriendlyLoginID.Equals(friendlyLogin))
+            .DefaultIfEmpty(new UserInformation())
+            .FirstOrDefault();
+        }
         public void CreateUserInformation(UserInformation userInformation)
         {
             Create(userInformation);

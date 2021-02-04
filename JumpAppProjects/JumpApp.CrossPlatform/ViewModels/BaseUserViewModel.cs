@@ -26,6 +26,8 @@ namespace JumpApp.ViewModels
         public UserInfo pfTopUser;
         public string pfLoginID;
         public string pfProfileImageExtension;
+        public string gridVisibility;
+        public string friendLabel;
 
         //Core User Info
         public int Weight
@@ -267,7 +269,24 @@ namespace JumpApp.ViewModels
                 NotifyPropertyChanged("PFProfileImageExtension");
             }
         }
-
+        public string GridVisibility
+        {
+            get { return gridVisibility; }
+            set
+            {
+                gridVisibility = value;
+                NotifyPropertyChanged("GridVisibility");
+            }
+        }
+        public string FriendLabel
+        {
+            get { return friendLabel; }
+            set
+            {
+                friendLabel = value;
+                NotifyPropertyChanged("FriendLabel");
+            }
+        }
         #region INotifyPropertyChanged      
         public event PropertyChangedEventHandler PropertyChanged;
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

@@ -32,8 +32,12 @@ namespace JumpApp.Converters
 
             if (lblProfileExtension.Text == null || lblProfileExtension.Text == "")
             {
-                profileExtension = lblProfileExtension.FormattedText.Spans[0].Text;
-                hasProfileImage = lblProfileExtension.FormattedText.Spans[2].Text;
+                if(lblProfileExtension.FormattedText != null)
+                {
+                    profileExtension = lblProfileExtension.FormattedText.Spans[0].Text;
+                    hasProfileImage = lblProfileExtension.FormattedText.Spans[2].Text;
+                }
+               
             }
             else
             {

@@ -36,6 +36,14 @@ namespace JumpApp.MobileAppService.Controllers
             var UserInfo = repoWrapper.UserInfo.GetUserInformationByLogin(LoginId);
             return UserInfo;
         }
+        [Route("[action]/{FriendlyLoginId}")]
+        [HttpGet]
+        public UserInformation GetPublicUserInfoFriendlyLogin(string FriendlyLoginId)
+        {
+            //Guid result = Guid.Parse(Id);
+            var UserInfo = repoWrapper.UserInfo.GetUserInformationByFriendlyLogin(FriendlyLoginId);
+            return UserInfo;
+        }
 
         [Route("[action]/{Id}")]
         [HttpGet]

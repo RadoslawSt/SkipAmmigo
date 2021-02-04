@@ -17,5 +17,6 @@ namespace Entities.Models
         public int ProfileImageExtension { get; set; }
         public string FriendsID { get; set; }
         public string PendingID { get; set; }
+        public string FriendlyLoginID { get; set; }
     }
 }

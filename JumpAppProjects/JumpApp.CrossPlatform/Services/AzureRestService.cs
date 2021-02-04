@@ -142,6 +142,16 @@ namespace JumpApp.Services
 
             return null;
         }
+        public async Task<UserInfo> GetPublicUserInfoFriendlyLogin(string friendlyLoginId)
+        {
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                var json = await client.GetStringAsync($"api/UserInfo/GetPublicUserInfoFriendlyLogin/{friendlyLoginId}");
+                return await Task.Run(() => JsonConvert.DeserializeObject<UserInfo>(json));
+            }
+
+            return null;
+        }
         public async Task<UserInfo> GetPublicUserInfo(int Id)
         {
             if (CrossConnectivity.Current.IsConnected)

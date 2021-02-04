@@ -37,6 +37,7 @@ namespace Entities.Extensions
             dbUserInfo.ProfileImageExtension = userInfo.ProfileImageExtension;
             dbUserInfo.FriendsID = userInfo.FriendsID;
             dbUserInfo.PendingID = userInfo.PendingID;
+            dbUserInfo.FriendlyLoginID = userInfo.FriendlyLoginID;
         }
     }
 }
