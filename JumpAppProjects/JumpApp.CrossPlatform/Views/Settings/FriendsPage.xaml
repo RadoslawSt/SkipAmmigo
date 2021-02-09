@@ -89,8 +89,8 @@
                                     </ffimageloading:CachedImage.Transformations>
                                 </ffimageloading:CachedImage>
 
-                                <Label Grid.Column="1" x:Name="lblUserName" Grid.Row="0" Text="{Binding UserName}" VerticalOptions="Center" Style="{StaticResource StandardLabel}"/>
-                                <Label Grid.Column="2" Grid.Row="0" Text="{Binding LastActiveDateTime, StringFormat='{0:M}'}" VerticalOptions="Center" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="1" x:Name="lblUserName" Grid.Row="0" Text="{Binding UserName}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="2" Grid.Row="0" Text="{Binding LastActiveDateTime, StringFormat='{0:M}'}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource StandardLabel}"/>
                                 <Button HorizontalOptions="FillAndExpand" x:Name="btnDeleteFriend" Text="Delete" Grid.Column="3" Grid.Row="0" BindingContext="{Binding Source={x:Reference lvFriendList}, Path=BindingContext}" Command="{Binding DeleteFriendCommand}" CommandParameter="{Binding Source={x:Reference lblUserName}, Path=BindingContext}" Style="{StaticResource RedButton}"/>
                                 <!--<Label Grid.Column="1"  Grid.Row="1" VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
                 -->
@@ -105,7 +105,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="btnAddFriend" Text="Add Friend" HorizontalOptions="FillAndExpand"  Margin="10"></Button>
+            <Button x:Name="btnAddFriend" Text="Add Friend" HorizontalOptions="FillAndExpand"  Margin="10" Command="{Binding AddFriendCommand}" Style="{StaticResource GreenButton}"></Button>
             <!--<ListView ItemsSource="{Binding WorkoutSessionsLimited}" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvWorkoutList" CachingStrategy="RecycleElementAndDataTemplate" ItemTapped="LvWorkoutList_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>

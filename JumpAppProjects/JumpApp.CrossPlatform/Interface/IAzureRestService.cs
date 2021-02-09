@@ -18,6 +18,7 @@ namespace JumpApp.Services
 
         Task<UserInfo> GetPublicUserInfo(string loginID);
         Task<UserInfo> GetPublicUserInfo(int Id);
+        Task<UserInfo> GetPublicUserInfoFriendlyLogin(string friendlyId);
         Task<bool> AddPublicUserInfo(UserInfo coreUserInfo);
         Task<bool> UpdatePublicUserInfo(UserInfo coreUserinfo);
 

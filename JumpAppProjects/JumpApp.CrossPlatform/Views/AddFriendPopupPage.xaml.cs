@@ -8,20 +8,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace JumpApp.Views.Settings
+namespace JumpApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FriendsPage : ContentPage
-	{
-		public FriendsPage ()
+	public partial class AddFriendPopupPage : Rg.Plugins.Popup.Pages.PopupPage
+    {
+		public AddFriendPopupPage (INavigation Navigation)
 		{
 			InitializeComponent ();
-            BindingContext = new FriendsViewModel(Navigation);
+            BindingContext = new MyPopupPageModel(Navigation, null,this);
         }
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
-    }
+	}
 }

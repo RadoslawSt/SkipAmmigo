@@ -1,6 +1,8 @@
 ﻿
 using JumpApp.Models;
 using JumpApp.Services;
+using JumpApp.Views;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,14 +19,17 @@ namespace JumpApp.ViewModels
         private IAzureRestService azureRestServ = new AzureRestService();
         public ICommand ProcessFriendRequestCommand { get; private set; }
         public ICommand DeleteFriendCommand { get; private set; }
+        public ICommand AddFriendCommand { get; private set; }
 
-        public FriendsViewModel()
+        public FriendsViewModel(INavigation Navigation)
         {
             publicUserInfo = new UserInfo();
+            navigation = Navigation;
             azureRestServ = DependencyService.Get<IAzureRestService>();
             publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier); }).Result;
             ProcessFriendRequestCommand = new Command(async (object obj) => await ProcessFriendRequest(obj));
             DeleteFriendCommand = new Command(async (object obj) => await DeleteFriend(obj));
+            AddFriendCommand = new Command(async () => await AddFriend());
 
             SetupPendingFriend();
             SetupFriend();
@@ -94,7 +99,16 @@ namespace JumpApp.ViewModels
             SetupPendingFriend();
             SetupFriend();
         }
+        private async Task AddFriend()
+        {
+            var popupPage = new AddFriendPopupPage(navigation);
+            //var popupPage = new PostWorkoutPopupPage(publicUser, (float)250);
+            //popupPage.CallbackEvent += (object sender, object e) => CallbackMethod(e);
+            await navigation.PushPopupAsync(popupPage);
 
+
+           
+        }
         private async Task ProcessFriendRequest(object sender)
         {
             string command = (string)sender;
@@ -139,6 +153,7 @@ namespace JumpApp.ViewModels
                 if (command == "Confirm")
                 {
                     publicUserInfo.FriendsID = publicUserInfo.FriendsID + "," + PFTopUser.Id;
+                    PFTopUser.FriendsID = PFTopUser.FriendsID + "," + publicUserInfo.Id;
                     //publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length);
                     publicUserInfo.PendingID = "";
                 }
@@ -155,6 +170,7 @@ namespace JumpApp.ViewModels
             
                       
             await azureRestServ.UpdatePublicUserInfo(publicUserInfo);
+            await azureRestServ.UpdatePublicUserInfo(PFTopUser);
             SetupPendingFriend();
             SetupFriend();
         }

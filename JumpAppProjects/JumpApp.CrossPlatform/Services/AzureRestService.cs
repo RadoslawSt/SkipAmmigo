@@ -61,9 +61,6 @@ namespace JumpApp.Services
 
             return response.IsSuccessStatusCode;
 
-
-
-
         }
 
         public async Task<bool> DeleteItemAsync(string id)

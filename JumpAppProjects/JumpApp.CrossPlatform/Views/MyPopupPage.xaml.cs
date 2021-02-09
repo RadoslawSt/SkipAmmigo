@@ -32,7 +32,8 @@ namespace JumpApp.Views
         {
             
             InitializeComponent();
-            BindingContext = new MyPopupPageModel(Navigation, this);
+            BindingContext = new MyPopupPageModel(Navigation, this,null);
+            
             
             //saveButton.Command = new BaseCommand(async (arg) =>
             //{

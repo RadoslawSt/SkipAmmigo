@@ -27,12 +27,13 @@ namespace JumpApp.ViewModels
         public ICommand ConfirmPictureCommand { get; private set; }
         public ICommand CancelPictureCommand { get; private set; }
         public ICommand PreviewPictureCommand { get; private set; }
+        public ICommand ConfirmFriendCommand { get; private set; }
         private IAzureRestService azureRestServ = new AzureRestService();
         public INavigation navigation;
         // private IAzureRestService azureRestServ = new AzureRestService();
         public UserInfo publicUserInfo;
         public MyPopupPage PopupPage { get; set; }
-        public MyPopupPageModel(INavigation Navigation, MyPopupPage parent)
+        public MyPopupPageModel(INavigation Navigation, MyPopupPage parent_myPopupPage, AddFriendPopupPage parent_addFriend)
         {
             //azureRestServ = DependencyService.Get<IAzureRestService>();
             PreviewTransformations = new List<ITransformation>();
@@ -40,12 +41,14 @@ namespace JumpApp.ViewModels
             SelectPictureCommand = new Command(async (object obj) => await SelectPicture(obj));
             ConfirmPictureCommand = new Command(async () => await ConfirmPicture());
             CancelPictureCommand = new Command(async () => await CancelPicture());
+            ConfirmFriendCommand = new Command(async (object obj) => await ConfirmFriend(obj));
             navigation = Navigation;
             azureRestServ = DependencyService.Get<IAzureRestService>();
-            PopupPage = parent;
+            PopupPage = parent_myPopupPage;
             PreviewPictureCommand = new Command(async (object obj) => await PreviewPicture(obj));
             FirstScreenVisibility = true;
             SecondScreenVisibility = false;
+            AddFriendLabelText = "Add Friends ID Below";
             GifVisibility = true;
             //string testing = AuthUserHelper.GetUserInfo("UserID");
             
@@ -60,6 +63,26 @@ namespace JumpApp.ViewModels
             //});
             
             Zoom = 1d;
+        }
+        private async Task ConfirmFriend(object sender)
+        {
+            Entry entrySender = (Entry)sender;
+
+            publicUserInfo = await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier);
+            UserInfo requestedPublicUserInfo = await azureRestServ.GetPublicUserInfoFriendlyLogin(entrySender.Text);
+            if(requestedPublicUserInfo.PendingID == "")
+            {
+                requestedPublicUserInfo.PendingID = publicUserInfo.Id.ToString();              
+            }
+            else
+            {
+                requestedPublicUserInfo.PendingID = requestedPublicUserInfo.PendingID + "," + publicUserInfo.Id;               
+            }
+
+            await azureRestServ.UpdatePublicUserInfo(requestedPublicUserInfo);
+            AddFriendLabelText = "Invitation Send";
+            await Task.Delay(2000);
+            await navigation.PopPopupAsync();
         }
         private async Task ConfirmPicture()
         {
@@ -249,6 +272,11 @@ namespace JumpApp.ViewModels
         }
         //private MediaFile _mediaFile;
         //private string URL { get; set; }
+        public string AddFriendLabelText
+        {
+            get { return GetField<string>(); }
+            set { SetField(value); }
+        }
         public byte[] DisplayImageByteArray
         {
             get { return GetField<byte[]>(); }
