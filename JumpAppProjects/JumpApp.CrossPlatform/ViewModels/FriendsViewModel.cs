@@ -2,6 +2,7 @@
 using JumpApp.Models;
 using JumpApp.Services;
 using JumpApp.Views;
+using JumpApp.Views.Settings;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
@@ -20,25 +21,28 @@ namespace JumpApp.ViewModels
         public ICommand ProcessFriendRequestCommand { get; private set; }
         public ICommand DeleteFriendCommand { get; private set; }
         public ICommand AddFriendCommand { get; private set; }
+        public ICommand ViewFriendCommand { get; private set; }
 
         public FriendsViewModel(INavigation Navigation)
         {
             publicUserInfo = new UserInfo();
+            FriendList = new ObservableCollection<UserInfo>();
             navigation = Navigation;
             azureRestServ = DependencyService.Get<IAzureRestService>();
             publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier); }).Result;
             ProcessFriendRequestCommand = new Command(async (object obj) => await ProcessFriendRequest(obj));
             DeleteFriendCommand = new Command(async (object obj) => await DeleteFriend(obj));
+            ViewFriendCommand = new Command(async (object obj) => await ViewFriend(obj));
             AddFriendCommand = new Command(async () => await AddFriend());
 
             SetupPendingFriend();
             SetupFriend();
-            
+
         }
         private void SetupPendingFriend()
         {
             PendingFriendList = new ObservableCollection<UserInfo>();
-            if(publicUserInfo.PendingID != "")
+            if (publicUserInfo.PendingID != "")
             {
                 GridVisibility = "True";
                 foreach (var i in publicUserInfo.PendingID.Split(','))
@@ -66,14 +70,32 @@ namespace JumpApp.ViewModels
         private void SetupFriend()
         {
             FriendList = new ObservableCollection<UserInfo>();
-            foreach (var i in publicUserInfo.FriendsID.Split(','))
+            if(publicUserInfo.FriendsID != "")
             {
-                var friend = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(Convert.ToInt32(i)); }).Result;
-                FriendList.Add(friend);
+                foreach (var i in publicUserInfo.FriendsID.Split(','))
+                {
+                    var friend = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(Convert.ToInt32(i)); }).Result;
+                    if (friend != null)
+                    {
+                        FriendList.Add(friend);
+                    }
+
+                }
+                FriendLabel = "Friends (" + FriendList.Count().ToString() + "/30)";
             }
-            FriendLabel = "Friends (" + FriendList.Count().ToString() + "/30)";
+            else
+            {
+                FriendLabel = "Friends (0/30)";
+            }
+                    
         }
-        private async Task DeleteFriend(object sender)
+        private async Task ViewFriend(object sender)
+        {
+            UserInfo friendToDelete = (UserInfo)sender;
+            string stop = "";
+            await navigation.PushAsync(new EditProfile("View Profile",friendToDelete.LoginId));
+        }
+            private async Task DeleteFriend(object sender)
         {
             UserInfo friendToDelete = (UserInfo)sender;
             List<string> newFriendList = new List<string>();
@@ -81,7 +103,7 @@ namespace JumpApp.ViewModels
 
             foreach (var friendID in FriendList)
             {
-                if(friendID.Id == friendToDelete.Id)
+                if (friendID.Id == friendToDelete.Id)
                 {
 
                 }
@@ -94,7 +116,15 @@ namespace JumpApp.ViewModels
             {
                 stringFormatFriendList += id + ",";
             }
-            publicUserInfo.FriendsID = stringFormatFriendList.Remove(stringFormatFriendList.Length - 1);
+            if(stringFormatFriendList != "")
+            {
+                publicUserInfo.FriendsID = stringFormatFriendList.Remove(stringFormatFriendList.Length - 1);
+            }
+            else
+            {
+                publicUserInfo.FriendsID = "";
+            }
+            
             await azureRestServ.UpdatePublicUserInfo(publicUserInfo);
             SetupPendingFriend();
             SetupFriend();
@@ -107,17 +137,15 @@ namespace JumpApp.ViewModels
             await navigation.PushPopupAsync(popupPage);
 
 
-           
+
         }
-        private async Task ProcessFriendRequest(object sender)
+        private string FormatFriendString(UserInfo formatUserInfo)
         {
-            string command = (string)sender;
             List<string> newPendingFriendList = new List<string>();
             string stringFormatPendingFriendList = "";
-
-            if (publicUserInfo.PendingID.Contains(','))
+            if (formatUserInfo.PendingID.Contains(','))
             {
-                foreach (var i in publicUserInfo.PendingID.Split(','))
+                foreach (var i in formatUserInfo.PendingID.Split(','))
                 {
                     if (i == PFTopUser.Id.ToString())
                     {
@@ -132,43 +160,97 @@ namespace JumpApp.ViewModels
                 {
                     stringFormatPendingFriendList += id + ",";
                 }
-                if (command == "Confirm")
-                {
-                    publicUserInfo.FriendsID = publicUserInfo.FriendsID + "," + PFTopUser.Id;
-                    publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length - 1);
-                }
-                else if (command == "Cancel")
-                {
-                    publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length - 1);
-                }
-                else
-                {
-
-                }
             }
             else
             {
-                stringFormatPendingFriendList = publicUserInfo.PendingID;
+                stringFormatPendingFriendList = formatUserInfo.PendingID;
+            }
+            if (stringFormatPendingFriendList.Count() <= 1)
+            {
+                stringFormatPendingFriendList = "";
+            }
+            else
+            {
+                stringFormatPendingFriendList = stringFormatPendingFriendList.Remove((stringFormatPendingFriendList.Length - 1));
+            }
+            return stringFormatPendingFriendList;
+        }
+        private async Task ProcessFriendRequest(object sender)
+        {
+            string command = (string)sender;
+            //List<string> newPendingFriendList = new List<string>();
+            //string stringFormatPendingFriendList = "";
+            string stringFormatPendingFriendList = FormatFriendString(publicUserInfo);
+            //if (publicUserInfo.PendingID.Contains(','))
+            //{
+            //foreach (var i in publicUserInfo.PendingID.Split(','))
+            //{
+            //    if (i == PFTopUser.Id.ToString())
+            //    {
 
-                if (command == "Confirm")
+            //    }
+            //    else
+            //    {
+            //        newPendingFriendList.Add(i);
+            //    }
+            //}
+            //foreach (var id in newPendingFriendList)
+            //{
+            //    stringFormatPendingFriendList += id + ",";
+            //}
+            if (command == "Confirm")
+            {
+                             
+                if(publicUserInfo.FriendsID != "")
                 {
                     publicUserInfo.FriendsID = publicUserInfo.FriendsID + "," + PFTopUser.Id;
-                    PFTopUser.FriendsID = PFTopUser.FriendsID + "," + publicUserInfo.Id;
-                    //publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length);
-                    publicUserInfo.PendingID = "";
-                }
-                else if (command == "Cancel")
-                {
-                    //publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length);
-                    publicUserInfo.PendingID = "";
                 }
                 else
                 {
-
+                    publicUserInfo.FriendsID =  PFTopUser.Id.ToString();
                 }
+                if(PFTopUser.FriendsID != "")
+                {
+                    PFTopUser.FriendsID = PFTopUser.FriendsID + "," + publicUserInfo.Id;
+                }
+                else
+                {
+                    PFTopUser.FriendsID = publicUserInfo.Id.ToString();
+                }
+                publicUserInfo.PendingID = stringFormatPendingFriendList;
             }
-            
-                      
+            else if (command == "Cancel")
+            {
+                publicUserInfo.PendingID = stringFormatPendingFriendList;
+            }
+            else
+            {
+
+            }
+            //}
+            //else
+            //{
+            // stringFormatPendingFriendList = publicUserInfo.PendingID;
+
+            //if (command == "Confirm")
+            //{
+            //    publicUserInfo.FriendsID = publicUserInfo.FriendsID + "," + PFTopUser.Id;
+            //    PFTopUser.FriendsID = PFTopUser.FriendsID + "," + publicUserInfo.Id;
+            //    //publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length);
+            //    publicUserInfo.PendingID = "";
+            //}
+            //else if (command == "Cancel")
+            //{
+            //    //publicUserInfo.PendingID = stringFormatPendingFriendList.Remove(stringFormatPendingFriendList.Length);
+            //    publicUserInfo.PendingID = "";
+            //}
+            //else
+            //{
+
+            //}
+            //}
+
+
             await azureRestServ.UpdatePublicUserInfo(publicUserInfo);
             await azureRestServ.UpdatePublicUserInfo(PFTopUser);
             SetupPendingFriend();

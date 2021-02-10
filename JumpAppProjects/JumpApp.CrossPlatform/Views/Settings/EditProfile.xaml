@@ -7,7 +7,7 @@
              x:Class="JumpApp.Views.Settings.EditProfile"
              x:Name="Page">
     <NavigationPage.TitleView>
-        <Label Text="Edit Profile" Style="{StaticResource NavigationLabel}"></Label>
+        <Label Text="Profile" Style="{StaticResource NavigationLabel}"></Label>
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout BackgroundColor="{StaticResource BackgroundLight}">
@@ -40,14 +40,14 @@
                         </ffimageloading:CachedImage.GestureRecognizers>
                     </ffimageloading:CachedImage>
                     <Local:CircleCountdown VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  Progress="{Binding RankProgress}" ProgressStartColor="{StaticResource LightRed}" ProgressEndColor="{StaticResource LightRed}"
-                        StrokeWidth="15"  Grid.Row="1" Grid.Column="1" Grid.RowSpan="7" />
+                        StrokeWidth="15"  Grid.Row="1" Grid.Column="1" Grid.RowSpan="7" WidthRequest="{Binding ProfileImageWidth}" HeightRequest="{Binding ProfileImageHeight}" />
 
                     <Label Text="{Binding UserName}" x:Name="lblName" Grid.Column="2" Grid.Row="2" Style="{StaticResource StandardLabel}"/>
                     <Label Text="{Binding RankTitle}" x:Name="lblRank" Grid.Column="2" Grid.Row="3" Style="{StaticResource StandardLabel}"/>
                     <Label Text="{Binding TotalJumps}" x:Name="lblTotalJumps" Grid.Column="2" Grid.Row="4" Style="{StaticResource StandardLabel}"/>
                     <Label Text="{Binding Active}" TextColor="{Binding ActiveColour}" x:Name="lblLastActive" Grid.Column="2" Grid.Row="5" Style="{StaticResource StandardLabel}"/>
                 </Grid>
-                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="3" IsVisible="{Binding GridVisibility}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"></ColumnDefinition>
                         <ColumnDefinition Width="150"></ColumnDefinition>

@@ -70,6 +70,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Grid.Row="0" x:Name="lblFriendProfileImageExtension" IsVisible="False">
                                     <Label.FormattedText>
@@ -91,7 +92,14 @@
 
                                 <Label Grid.Column="1" x:Name="lblUserName" Grid.Row="0" Text="{Binding UserName}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource StandardLabel}"/>
                                 <Label Grid.Column="2" Grid.Row="0" Text="{Binding LastActiveDateTime, StringFormat='{0:M}'}" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource StandardLabel}"/>
-                                <Button HorizontalOptions="FillAndExpand" x:Name="btnDeleteFriend" Text="Delete" Grid.Column="3" Grid.Row="0" BindingContext="{Binding Source={x:Reference lvFriendList}, Path=BindingContext}" Command="{Binding DeleteFriendCommand}" CommandParameter="{Binding Source={x:Reference lblUserName}, Path=BindingContext}" Style="{StaticResource RedButton}"/>
+                                <Button HorizontalOptions="FillAndExpand" x:Name="btnViewFriend" Text="View" Grid.Column="3" Grid.Row="0"
+                                        BindingContext="{Binding Source={x:Reference lvFriendList}, Path=BindingContext}" Command="{Binding ViewFriendCommand}"
+                                        CommandParameter="{Binding Source={x:Reference lblUserName}, Path=BindingContext}" Style="{StaticResource GreenButton}" FontSize="Small"/>
+                                <Button HorizontalOptions="FillAndExpand" x:Name="btnDeleteFriend" Text="Delete" Grid.Column="4" Grid.Row="0"
+                                        BindingContext="{Binding Source={x:Reference lvFriendList}, Path=BindingContext}" Command="{Binding DeleteFriendCommand}"
+                                        CommandParameter="{Binding Source={x:Reference lblUserName}, Path=BindingContext}" Style="{StaticResource RedButton}" FontSize="Small"/>
+                                
+                                
                                 <!--<Label Grid.Column="1"  Grid.Row="1" VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
                 -->
                                 <!--BackgroundColor="{Binding workoutSessionExists,Converter={StaticResource BackgroundColorConverter2}}"-->

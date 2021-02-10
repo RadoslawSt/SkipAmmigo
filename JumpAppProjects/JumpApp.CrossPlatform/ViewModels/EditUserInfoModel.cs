@@ -36,17 +36,33 @@ namespace JumpApp.ViewModels
         List<AchievementModel> AchievementsList { get; set; }
 
 
-        public EditUserInfoModel(INavigation Navigation, Grid grid)
+        public EditUserInfoModel(INavigation Navigation, Grid grid, string Profile, string identifier)
         {
             navigation = Navigation;
             userInfo = new CoreUserInfo();
             publicUserInfo = new UserInfo();
             azureRestServ = DependencyService.Get<IAzureRestService>();
-            userInfo = Task.Run(async () => { return await azureRestServ.GetCoreUserInfo(App.userContext.UserIdentifier); }).Result;
-            publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier); }).Result;
+
+            if (Profile == "View Profile")
+            {
+                GridVisibility = "False";
+                userInfo = Task.Run(async () => { return await azureRestServ.GetCoreUserInfo(identifier); }).Result;
+                publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(identifier); }).Result;
+            }
+            else if(Profile == "Edit Profile")
+            {
+                GridVisibility = "True";
+                userInfo = Task.Run(async () => { return await azureRestServ.GetCoreUserInfo(App.userContext.UserIdentifier); }).Result;
+                publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier); }).Result;
+                UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
+                ChangeProfileImageCommand = new Command(async () => await ChangeProfileImage());
+            }
+            else
+            {
+
+            }          
+                       
             
-            UpdateUserInfoCommand = new Command(async () => await UpdateUserInfo());
-            ChangeProfileImageCommand = new Command(async () => await ChangeProfileImage());
             SetUpUserInfo();
             SetUpAchievements();
             CreateGrid(grid);
@@ -258,6 +274,7 @@ namespace JumpApp.ViewModels
             else
             {
                 Active = LastActiveDateTime.ToString();
+                ActiveColour = "#F7FFF6";
             }
         }      
     }

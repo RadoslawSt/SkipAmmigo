@@ -75,7 +75,7 @@ namespace JumpApp.Views.Settings
 
                     case "Edit Profile":
                         
-                            await Navigation.PushAsync(new EditProfile());
+                            await Navigation.PushAsync(new EditProfile("Edit Profile",""));
                             //await Navigation.PushAsync(new CustomNavigationPage((Page)Activator.CreateInstance(typeof(EditProfile))));
                         
                         break;

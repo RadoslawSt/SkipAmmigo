@@ -11,7 +11,7 @@ namespace JumpApp.Views.Settings
     {
         //UserInfoRepository repo = new UserInfoRepository();
 
-        public EditProfile()
+        public EditProfile(string profile, string identification)
         {
             InitializeComponent();
             //this.FindByName("grid");
@@ -20,7 +20,7 @@ namespace JumpApp.Views.Settings
             //btn.BackgroundColor = Color.Red;
             //grid.Children.Add(btn);
 
-            BindingContext = new EditUserInfoModel(Navigation, grid);
+            BindingContext = new EditUserInfoModel(Navigation, grid,profile, identification);
             //repoWrapper = DependencyService.Get<IRepositoryWrapper>();
             //azureRestServ = DependencyService.Get<IAzureRestService>();
             //SetUpUserInfo();
