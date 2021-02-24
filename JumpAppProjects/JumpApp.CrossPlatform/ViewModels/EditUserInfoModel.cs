@@ -234,8 +234,8 @@ namespace JumpApp.ViewModels
             List<WorkoutSession> userSessions = Task.Run(async () => { return await azureRestServ.GetWorkoutSessions(LoginId); }).Result.ToList();
                       
             //ProfileImageSource = AuthUserHelper.GetUserImage().Source;
-            ProfileImageHeight = 150;
-            ProfileImageWidth = 150;
+            ProfileImageHeight = 125;
+            ProfileImageWidth = 125;
             //publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(AuthUserHelper.GetUserInfo("UserID")); }).Result;
             //var photoList = ProfileImageBlobStorageService.GetPhotos().Result;
             

@@ -70,6 +70,19 @@ namespace JumpApp.Views.Home
         {
             Navigation.PushAsync(new WorkoutPage());
         }
+       
+
+        private void BtnOwnWorkouts_Clicked(object sender, EventArgs e)
+        {
+            lvFriendsWorkoutList.IsVisible = false;
+            lvWorkoutList.IsVisible = true;
+        }
+
+        private void BtnFriendsWorkouts_Clicked(object sender, EventArgs e)
+        {
+            lvWorkoutList.IsVisible = false;
+            lvFriendsWorkoutList.IsVisible = true;
+        }
         //private async Task<bool> AnimationText()
         //{
         //    bool cycleCompleted = false;

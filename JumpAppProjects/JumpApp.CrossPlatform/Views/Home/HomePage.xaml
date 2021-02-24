@@ -50,12 +50,12 @@
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Text="Own" Grid.Column="1" Grid.Row="1" Style="{StaticResource StandardButton}"/>
-                <Button Text="Friends" Grid.Column="2" Grid.Row="1" IsEnabled="False" Style="{StaticResource StandardButton}"/>
+                <Button Text="Own" Grid.Column="1" x:Name="btnOwnWorkouts" Grid.Row="1" IsEnabled="True" Clicked="BtnOwnWorkouts_Clicked" Style="{StaticResource StandardButton}"/>
+                <Button Text="Friends" Grid.Column="2" x:Name="btnFriendsWorkouts" Grid.Row="1" IsEnabled="True" Clicked="BtnFriendsWorkouts_Clicked" Style="{StaticResource StandardButton}"/>
                 <Button Text="Users" Grid.Column="3" Grid.Row="1" IsEnabled="False" Style="{StaticResource StandardButton}"/>
             </Grid>
 
-            <ListView ItemsSource="{Binding WorkoutSessionsLimited}" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvWorkoutList" CachingStrategy="RecycleElementAndDataTemplate" ItemTapped="LvWorkoutList_ItemTapped">
+            <ListView ItemsSource="{Binding WorkoutSessionsLimited}" HasUnevenRows="true" IsVisible="True" SeparatorVisibility="Default" x:Name="lvWorkoutList" CachingStrategy="RecycleElementAndDataTemplate" ItemTapped="LvWorkoutList_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -72,6 +72,42 @@
                                 </Grid.ColumnDefinitions>
                                 <ffimageloading:CachedImage x:Name="imgProfile" DownsampleToViewSize="true" WidthRequest="60" HeightRequest="60"                                                                                                                             
                                          Source="{Binding LoginID,Converter={StaticResource ProfileImageSourceConverter2},ConverterParameter={x:Reference Name=lblProfileImageExtension}}"
+                                         VerticalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="FillAndExpand">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+
+                                <Label Grid.Column="1" Text="{Binding TotalJumps, StringFormat='{0:F0} Jumps'}" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="1"  Grid.Row="1" VerticalOptions="Start" Text="{Binding Duration, StringFormat='{}{0:mm\\:ss}'}" Style="{StaticResource StandardLabel}"/>
+                                <!--BackgroundColor="{Binding workoutSessionExists,Converter={StaticResource BackgroundColorConverter2}}"-->
+                                <Label Grid.Column="2" Text="Calories Burned" HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="2" Grid.Row="1" VerticalOptions="Start" HorizontalTextAlignment="Center" Text="{Binding Calories}" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="3" Text="{Binding DateTime, StringFormat='{0:M}'}" x:Name="lblDate"  HorizontalTextAlignment="Center" VerticalOptions="End" Style="{StaticResource StandardLabel}"/>
+                                <Label Grid.Column="3" Grid.Row="1" x:Name="lblTime" HorizontalTextAlignment="Center" VerticalOptions="Start" Text="{Binding DateTime, StringFormat='{}{0:H\\:mm}'}" Style="{StaticResource StandardLabel}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ListView ItemsSource="{Binding FriendsWorkoutSessionsLimited}" IsVisible="False" HasUnevenRows="true" SeparatorVisibility="Default" x:Name="lvFriendsWorkoutList" CachingStrategy="RecycleElement" ItemTapped="LvWorkoutList_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5" RowSpacing="10" ColumnSpacing="10" BackgroundColor="{Binding WorkoutSessionId,Converter={StaticResource BackgroundColorConverter2}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label x:Name="lblFriendProfileImageExtension" IsVisible="False" Grid.Column="0" Grid.Row="0" Text="NoExtension"></Label>
+                                <ffimageloading:CachedImage x:Name="imgProfile" DownsampleToViewSize="true" WidthRequest="60" HeightRequest="60"  CacheType="Memory"                                                                                                                           
+                                         Source="{Binding LoginID,Converter={StaticResource ProfileImageSourceConverter2},ConverterParameter={x:Reference Name=lblFriendProfileImageExtension}}"
                                          VerticalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="FillAndExpand">
                                     <ffimageloading:CachedImage.Transformations>
                                         <fftransformations:CircleTransformation />

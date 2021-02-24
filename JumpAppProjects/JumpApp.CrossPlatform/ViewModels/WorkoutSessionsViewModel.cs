@@ -48,6 +48,7 @@ namespace JumpApp.ViewModels
 
 
 
+            Task.Run(async () => { await SetUpFriendsWorkout(); });
 
             WorkoutSessions = new ObservableCollection<WorkoutSession>(WorkoutSessionList.OrderByDescending(x=> x.DateTime));
             WorkoutSessionsLimited = new ObservableCollection<WorkoutSession>(WorkoutSessionList.OrderByDescending(x => x.DateTime).Take(10));
@@ -73,6 +74,19 @@ namespace JumpApp.ViewModels
                 //}
             }
 
+        }
+        public async Task SetUpFriendsWorkout()
+        {
+            foreach(var x in publicUserInfo.FriendsID.Split(','))
+            {
+                UserInfo friend = await azureRestServ.GetPublicUserInfo(Convert.ToInt32(x));
+                List<WorkoutSession> friendWorkouts = (List<WorkoutSession>) await azureRestServ.GetWorkoutSessions(friend.LoginId);
+                foreach(var workouts in friendWorkouts)
+                {
+                    FriendsWorkoutSessionsLimited.Add(workouts);
+                }
+            }
+            FriendsWorkoutSessionsLimited.OrderByDescending(x => x.DateTime).Take(10);
         }
     }
 }

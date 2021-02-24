@@ -28,7 +28,7 @@
                         <RowDefinition Height="20"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <ffimageloading:CachedImage x:Name="imgProfile" Margin="5" DownsampleToViewSize="true" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"
+                    <ffimageloading:CachedImage x:Name="imgProfile" Margin="5" DownsampleToViewSize="True" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"
                          Source="{Binding ProfileImageSource}" WidthRequest="{Binding ProfileImageWidth}" HeightRequest="{Binding ProfileImageHeight}" LoadingPlaceholder = "{Binding DefaultImage}"
                         Grid.Row="1" Grid.Column="1" Grid.RowSpan="7"  ErrorPlaceholder = "{Binding DefaultImage}">
 
@@ -39,7 +39,7 @@
                             <TapGestureRecognizer Command="{Binding ChangeProfileImageCommand}"></TapGestureRecognizer>
                         </ffimageloading:CachedImage.GestureRecognizers>
                     </ffimageloading:CachedImage>
-                    <Local:CircleCountdown VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  Progress="{Binding RankProgress}" ProgressStartColor="{StaticResource LightRed}" ProgressEndColor="{StaticResource LightRed}"
+                    <Local:CircleCountdown VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"  Progress="{Binding RankProgress}" ProgressStartColor="{StaticResource LightRed}" ProgressEndColor="{StaticResource LightRed}"
                         StrokeWidth="15"  Grid.Row="1" Grid.Column="1" Grid.RowSpan="7" WidthRequest="{Binding ProfileImageWidth}" HeightRequest="{Binding ProfileImageHeight}" />
 
                     <Label Text="{Binding UserName}" x:Name="lblName" Grid.Column="2" Grid.Row="2" Style="{StaticResource StandardLabel}"/>

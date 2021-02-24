@@ -13,16 +13,16 @@ namespace JumpApp.Converters
     public class ProfileImageSourceConverter : IValueConverter
     {
         public UserInfo publicUserInfo { get; set; }
-      
+
         private IAzureRestService azureRestServ = new AzureRestService();
-      
+
         public ProfileImageSourceConverter()
         {
             publicUserInfo = new UserInfo();
             azureRestServ = DependencyService.Get<IAzureRestService>();
-    
+
         }
-       
+
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -30,29 +30,40 @@ namespace JumpApp.Converters
             string profileExtension = "";
             string hasProfileImage = "";
 
+            if (lblProfileExtension.Text == "NoExtension")
+            {
+                publicUserInfo = Task.Run(async () => { return await azureRestServ.GetPublicUserInfo(value.ToString()); }).Result;
+                hasProfileImage = publicUserInfo.HasProfileImage.ToString();
+                profileExtension = publicUserInfo.ProfileImageExtension.ToString();
+            }
+
             if (lblProfileExtension.Text == null || lblProfileExtension.Text == "")
             {
-                if(lblProfileExtension.FormattedText != null)
+                if (lblProfileExtension.FormattedText != null)
                 {
                     profileExtension = lblProfileExtension.FormattedText.Spans[0].Text;
                     hasProfileImage = lblProfileExtension.FormattedText.Spans[2].Text;
                 }
-               
+
             }
             else
             {
-                var testSplit = lblProfileExtension.Text.Split('|');
-                profileExtension = testSplit[0];
-                hasProfileImage = testSplit[1];
+                if (lblProfileExtension.Text.Contains("|"))
+                {
+                    var testSplit = lblProfileExtension.Text.Split('|');
+                    profileExtension = testSplit[0];
+                    hasProfileImage = testSplit[1];
+                }
+                
             }
-            
-            
+
+
             // repetitionCheck = publicUserInfo.ProfileImageExtension;
             //if(repetitionCheck != publicUserInfo.ProfileImageExtension)
             //{
-      
+
             //}
-        
+
             if (hasProfileImage == "True")
             {
                 return ImageSource.FromUri(new Uri("https://jumpappbackendservice.blob.core.windows.net/profileimages/" + value.ToString() + profileExtension));
@@ -61,7 +72,7 @@ namespace JumpApp.Converters
             {
                 return ImageSource.FromUri(new Uri("https://jumpappbackendservice.blob.core.windows.net/profileimages/PlaceholderImage"));
             }
-                //return !string.IsNullOrEmpty($"{value}");
+            //return !string.IsNullOrEmpty($"{value}");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

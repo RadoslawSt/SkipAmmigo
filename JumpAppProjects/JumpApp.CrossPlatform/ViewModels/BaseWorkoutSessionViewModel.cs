@@ -16,6 +16,7 @@ namespace JumpApp.ViewModels
         public WorkoutSession workoutSession;
         public ObservableCollection<WorkoutSession> workoutSessions = new ObservableCollection<WorkoutSession>();
         public ObservableCollection<WorkoutSession> workoutSessionsLimited = new ObservableCollection<WorkoutSession>();
+        public ObservableCollection<WorkoutSession> friendsWorkoutSessionsLimited = new ObservableCollection<WorkoutSession>();
         //public IWorkoutSessionRepository workoutSessionRepo;
         // public UserInfo publicUserInfo = new UserInfo();
         //private IAzureRestService azureRestServ = new AzureRestService();
@@ -28,6 +29,11 @@ namespace JumpApp.ViewModels
         {
             get { return workoutSessionsLimited; }
             set { workoutSessionsLimited = value; }
+        }
+        public ObservableCollection<WorkoutSession> FriendsWorkoutSessionsLimited
+        {
+            get { return friendsWorkoutSessionsLimited; }
+            set { friendsWorkoutSessionsLimited = value; }
         }
         public TimeSpan Duration
         {

@@ -163,9 +163,10 @@ namespace JumpApp.ViewModels
             }
             else
             {
-                stringFormatPendingFriendList = formatUserInfo.PendingID;
+                
+                stringFormatPendingFriendList = "";
             }
-            if (stringFormatPendingFriendList.Count() <= 1)
+            if (stringFormatPendingFriendList.Count() == 0)
             {
                 stringFormatPendingFriendList = "";
             }
