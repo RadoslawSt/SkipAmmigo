@@ -28,41 +28,120 @@ namespace JumpApp.ViewModels
         public ICommand CancelPictureCommand { get; private set; }
         public ICommand PreviewPictureCommand { get; private set; }
         public ICommand ConfirmFriendCommand { get; private set; }
+        public ICommand ConfirmAchievementCommand { get; private set; }
+
         private IAzureRestService azureRestServ = new AzureRestService();
         public INavigation navigation;
         // private IAzureRestService azureRestServ = new AzureRestService();
         public UserInfo publicUserInfo;
         public MyPopupPage PopupPage { get; set; }
-        public MyPopupPageModel(INavigation Navigation, MyPopupPage parent_myPopupPage, AddFriendPopupPage parent_addFriend)
+        public int achievementID { get; set; }
+
+        public MyPopupPageModel(INavigation Navigation, MyPopupPage parent_myPopupPage, AddFriendPopupPage parent_addFriend, AchievementPopupPage parent_achievementPopup, int AchievementID)
         {
-            //azureRestServ = DependencyService.Get<IAzureRestService>();
+            navigation = Navigation;
+            azureRestServ = DependencyService.Get<IAzureRestService>();
+            PopupPage = parent_myPopupPage;
             PreviewTransformations = new List<ITransformation>();
+
             TakePictureCommand = new Command(async (object obj) => await TakePicture(obj));
             SelectPictureCommand = new Command(async (object obj) => await SelectPicture(obj));
             ConfirmPictureCommand = new Command(async () => await ConfirmPicture());
             CancelPictureCommand = new Command(async () => await CancelPicture());
             ConfirmFriendCommand = new Command(async (object obj) => await ConfirmFriend(obj));
-            navigation = Navigation;
-            azureRestServ = DependencyService.Get<IAzureRestService>();
-            PopupPage = parent_myPopupPage;
             PreviewPictureCommand = new Command(async (object obj) => await PreviewPicture(obj));
+            ConfirmAchievementCommand = new Command(async () => await ConfirmAchievement());
+
             FirstScreenVisibility = true;
             SecondScreenVisibility = false;
             AddFriendLabelText = "Add Friends ID Below";
             GifVisibility = true;
-            //string testing = AuthUserHelper.GetUserInfo("UserID");
-            
-            //RotateCommand = new BaseCommand((arg) =>
-            //{
-            //    var rotation = Rotation + 90;
-
-            //    if (rotation >= 360)
-            //        rotation = 0;
-
-            //    Rotation = rotation;
-            //});
-            
+            achievementID = AchievementID;
             Zoom = 1d;
+
+            AchievementTitle = "";
+            AchievementIconSource = "";
+            AchievementDetails = "";
+
+            if(achievementID != 0)
+            {
+                Task.Run(async () => {await SetupAchievement(); });
+            }
+        }
+        private async Task SetupAchievement()
+        {
+            publicUserInfo = await azureRestServ.GetPublicUserInfo(App.userContext.UserIdentifier);
+
+            switch (achievementID)
+            {
+                case 1:
+                    AchievementTitle = "Achieve Rank Legend";
+                    AchievementIconSource = "AchievementLegend.png";
+                    AchievementDetails = "Detail 1";
+                    break;
+                case 2:
+                    AchievementTitle = "Achieve Rank Professional";
+                    AchievementIconSource = "AchievementProfessional.png";
+                    AchievementDetails = "Detail 2";
+                    break;
+                case 3:
+                    AchievementTitle = "Set Workout reminder";
+                    AchievementIconSource = "Bell.png";
+                    AchievementDetails = "Detail 3";
+                    break;
+                case 4:
+                    AchievementTitle = "Add 10 Friends";
+                    AchievementIconSource = "Crowd.png";
+                    AchievementDetails = "Detail 4";
+                    break;
+                case 5:
+                    AchievementTitle = "Change your profile image";
+                    AchievementIconSource = "User.png";
+                    AchievementDetails = "Detail 5";
+                    break;
+                case 6:
+                    AchievementTitle = "Jump for 20 minutes in one session";
+                    AchievementIconSource = "Marketing.png";
+                    AchievementDetails = "Detail 6";
+                    break;
+                case 7:
+                    AchievementTitle = "Add a friend";
+                    AchievementIconSource = "Person.png";
+                    AchievementDetails = "Detail 7";
+                    break;
+                case 8:
+                    AchievementTitle = "Burn accumulated 4000 calories";
+                    AchievementIconSource = "Pizza.png";
+                    AchievementDetails = "Detail 8";
+                    break;
+                case 9:
+                    AchievementTitle = "Achieve 50,000 total jumps";
+                    AchievementIconSource = "Structure.png";
+                    AchievementDetails = "Detail 9";
+                    break;
+                case 10:
+                    AchievementTitle = "Accumulate total of 3H of jumping session";
+                    AchievementIconSource = "TimeManagement.png";
+                    AchievementDetails = "Detail 10";
+                    break;
+                default:
+                    break;
+            }
+            if(publicUserInfo.Achievements == "")
+            {
+                publicUserInfo.Achievements = achievementID.ToString();
+            }
+            else
+            {
+                publicUserInfo.Achievements = publicUserInfo.Achievements + "," + achievementID;
+            }
+
+            await azureRestServ.UpdatePublicUserInfo(publicUserInfo);
+            achievementID = 0;
+        }
+        private async Task ConfirmAchievement()
+        {
+            await navigation.PopPopupAsync();
         }
         private async Task ConfirmFriend(object sender)
         {
@@ -269,9 +348,24 @@ namespace JumpApp.ViewModels
                 //imageView.Source = ImageSource.FromStream(() => _mediaFile.GetStream());
                 // UploadedUrl.Text = "Image URL:";
             }
+        }  
+        
+        public string AchievementTitle
+        {
+            get { return GetField<string>(); }
+            set { SetField(value); }
         }
-        //private MediaFile _mediaFile;
-        //private string URL { get; set; }
+        public string AchievementIconSource
+        {
+            get { return GetField<string>(); }
+            set { SetField(value); }
+        }
+        public string AchievementDetails
+        {
+            get { return GetField<string>(); }
+            set { SetField(value); }
+        }
+
         public string AddFriendLabelText
         {
             get { return GetField<string>(); }

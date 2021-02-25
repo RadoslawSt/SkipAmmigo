@@ -92,7 +92,7 @@ namespace JumpApp.ViewModels
         private async Task ViewFriend(object sender)
         {
             UserInfo friendToDelete = (UserInfo)sender;
-            string stop = "";
+            //string stop = "";
             await navigation.PushAsync(new EditProfile("View Profile",friendToDelete.LoginId));
         }
             private async Task DeleteFriend(object sender)

@@ -227,6 +227,7 @@ namespace JumpApp.ViewModels
 
             ////App.AuthenticationClient.UserTokenCache.Clear(Constants.ApplicationID);
             //await navigation.PopToRootAsync();
+            
         }
        
         public void SetUpUserInfo()

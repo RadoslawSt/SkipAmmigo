@@ -82,6 +82,8 @@ namespace JumpApp.Views.Home
         {
             lvWorkoutList.IsVisible = false;
             lvFriendsWorkoutList.IsVisible = true;
+
+            
         }
         //private async Task<bool> AnimationText()
         //{

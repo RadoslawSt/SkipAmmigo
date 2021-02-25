@@ -11,12 +11,12 @@ using Xamarin.Forms.Xaml;
 namespace JumpApp.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AddFriendPopupPage : Rg.Plugins.Popup.Pages.PopupPage
+	public partial class AchievementPopupPage : Rg.Plugins.Popup.Pages.PopupPage
     {
-		public AddFriendPopupPage (INavigation Navigation)
+		public AchievementPopupPage(int AchievementID)
 		{
 			InitializeComponent ();
-            BindingContext = new MyPopupPageModel(Navigation, null,this,null,0);
+            BindingContext = new MyPopupPageModel(Navigation, null,null, this, AchievementID);
         }
 	}
 }
