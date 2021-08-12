@@ -1,13 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Entities.Models
 {
     public partial class JumpAppDbContext : DbContext
     {
-        public JumpAppDbContext()
+        private IConfiguration _configuration;
+
+        public JumpAppDbContext(IConfiguration configuration)
         {
+            _configuration = configuration;
         }
 
         public JumpAppDbContext(DbContextOptions<JumpAppDbContext> options)
@@ -24,8 +28,9 @@ namespace Entities.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:jumpappdbserver.database.windows.net,1433;Initial Catalog=JumpAppDb;Persist Security Info=False;User ID=rstaszczak;Password=Staszczak100;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                var myConnString = _configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(myConnString);
+               
             }
         }
 

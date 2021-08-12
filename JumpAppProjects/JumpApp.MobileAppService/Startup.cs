@@ -36,6 +36,7 @@ namespace JumpApp.MobileAppService
             services.ConfigureRepositoryWrapper();
             services.ConfigureSwaggerGen();
             services.AddMvc();
+            
             //services.AddSwaggerGen(c =>
             //{
             //    c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
@@ -72,7 +73,7 @@ namespace JumpApp.MobileAppService
                 //    }
                 //});
                 app.UseMvc();
-
+                
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
